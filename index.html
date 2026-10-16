@@ -92,6 +92,29 @@ h4::before,h4::after{content:"";flex:1;height:1px;background:var(--cobalt);opaci
 .btn{border:1.5px solid var(--cobalt);color:var(--cobalt);border-radius:99px;padding:9px 20px;font-weight:700;letter-spacing:.14em;font-size:12px;text-transform:uppercase}
 .btn.fill{background:var(--cobalt);color:var(--paper)}
 .note{font-style:italic;color:var(--soft);font-size:16px;width:100%}
+
+/* edição */
+.topbar{display:flex;justify-content:space-between;align-items:center;width:100%}
+.topbar .back{align-self:auto}
+.edit-link{font-weight:700;letter-spacing:.18em;font-size:13px;color:var(--cobalt);padding:4px 0}
+.fld{font:inherit;color:var(--ink);background:transparent;border:0;border-bottom:1.5px solid var(--line);padding:8px 2px;border-radius:0;width:100%;min-width:0}
+.fld:focus{border-bottom-color:var(--cobalt);outline:none}
+.fld::placeholder{color:var(--soft);font-style:italic}
+.fld.title{font-size:24px;font-weight:600;text-align:center;border-bottom-color:var(--cobalt)}
+.photo-edit{display:flex;flex-direction:column;align-items:center;gap:8px;margin:16px 0 8px}
+.photo-edit .thumb{width:104px;height:104px}
+.photo-btns{display:flex;gap:16px}
+.linkbtn{font-size:15px;font-style:italic;color:var(--cobalt);text-decoration:underline;text-underline-offset:3px}
+.linkbtn.muted{color:var(--soft)}
+.erow{display:flex;gap:8px;align-items:center;width:100%}
+.erow .q{flex:0 0 40%}
+.erow .fld{font-size:17px}
+.erow .n{flex:1}
+.rm{width:30px;height:30px;flex:none;color:var(--soft);font-size:22px;line-height:1;display:grid;place-items:center}
+.rm:hover{color:#B4475A}
+.add{margin-top:10px;font-size:16px;font-style:italic;color:var(--cobalt)}
+.actions{margin-top:30px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+#fileIn{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -165,7 +188,7 @@ function renderRecipe(){
   const meta=[r.tempo,r.porcoes].filter(Boolean).map(esc).join(" · ");
   const url=safeUrl(r.video_url);
   $view.innerHTML=`
-    <button class="back" id="back">‹ VOLTAR</button>
+    <div class="topbar"><button class="back" id="back">‹ VOLTAR</button><button class="edit-link" id="edit">EDITAR</button></div>
     ${r.foto?thumb(r,"hero-photo"):""}
     <h2>${esc(r.titulo)}</h2>
     ${meta||url?`<div class="frame">${meta?`<div class="caps">${meta}</div>`:""}${url?`<a class="src" href="${esc(url)}" target="_blank" rel="noopener">▶ ver vídeo original</a>`:""}</div>`:""}
@@ -183,6 +206,7 @@ function renderRecipe(){
       ?`<span class="note">Apagar essa receita pra sempre?</span><button class="btn" id="no">cancelar</button><button class="btn fill" id="yes">apagar</button>`
       :`<button class="btn" id="del">apagar receita</button>`}</div>`;
   $("back").onclick=()=>{current=null;confirmDel=false;renderList();scrollTo(0,0)};
+  $("edit").onclick=()=>startEdit(r);
   $view.querySelectorAll(".ing input").forEach(cb=>cb.onchange=()=>saveIngs(r,ings.map((i,k)=>k===+cb.dataset.n?{...i,checked:cb.checked}:{...i})));
   if($("reset"))$("reset").onclick=()=>saveIngs(r,ings.map(i=>({...i,checked:false})));
   if($("del"))$("del").onclick=()=>{confirmDel=true;renderRecipe()};
@@ -194,8 +218,71 @@ function renderRecipe(){
   };
 }
 
-function open(id){current=id;confirmDel=false;renderRecipe();scrollTo(0,0)}
-function render(){current?renderRecipe():renderList()}
+/* ---------- edição ---------- */
+let draft=null;
+function startEdit(r){
+  draft={id:r.id,titulo:r.titulo||"",foto:r.foto||"",ingredientes:(r.ingredientes||[]).map(i=>({...i}))};
+  if(!draft.ingredientes.length)draft.ingredientes.push({qty:"",name:"",checked:false});
+  renderEdit();scrollTo(0,0);
+}
+function renderEdit(msg){
+  const d=draft;
+  $view.innerHTML=`
+    <div class="topbar"><button class="back" id="cancelTop">‹ CANCELAR</button><span></span></div>
+    <div class="photo-edit">${thumb({foto:d.foto})}
+      <div class="photo-btns"><button class="linkbtn" id="pick">${d.foto?"trocar foto":"colocar foto"}</button>${d.foto?'<button class="linkbtn muted" id="nofoto">remover foto</button>':""}</div>
+      <input type="file" id="fileIn" accept="image/*">
+    </div>
+    <input class="fld title" id="eTitle" value="${esc(d.titulo)}" placeholder="Nome da receita" aria-label="Nome da receita">
+    <h4>Ingredientes</h4>
+    <div style="width:100%;display:flex;flex-direction:column;gap:2px">${d.ingredientes.map((i,k)=>`
+      <div class="erow">
+        <input class="fld q" id="eq-${k}" data-k="${k}" data-f="qty" value="${esc(i.qty)}" placeholder="qtd." aria-label="Quantidade">
+        <input class="fld n" id="en-${k}" data-k="${k}" data-f="name" value="${esc(i.name)}" placeholder="ingrediente" aria-label="Ingrediente">
+        <button class="rm" data-rm="${k}" aria-label="Remover ingrediente">×</button>
+      </div>`).join("")}</div>
+    <button class="add" id="addIng">+ ingrediente</button>
+    ${msg?`<p class="msg err" style="margin-top:14px">${esc(msg)}</p>`:""}
+    <div class="actions"><button class="btn" id="cancel">cancelar</button><button class="btn fill" id="saveEdit">salvar</button></div>`;
+  $("eTitle").oninput=e=>{d.titulo=e.target.value};
+  $view.querySelectorAll(".erow .fld").forEach(inp=>inp.oninput=()=>{d.ingredientes[+inp.dataset.k][inp.dataset.f]=inp.value});
+  $view.querySelectorAll("[data-rm]").forEach(b=>b.onclick=()=>{d.ingredientes.splice(+b.dataset.rm,1);renderEdit()});
+  $("addIng").onclick=()=>{d.ingredientes.push({qty:"",name:"",checked:false});renderEdit();const k=d.ingredientes.length-1;$("eq-"+k).focus()};
+  $("pick").onclick=()=>$("fileIn").click();
+  if($("nofoto"))$("nofoto").onclick=()=>{d.foto="";renderEdit()};
+  $("fileIn").onchange=async e=>{const f=e.target.files[0];if(!f)return;
+    try{d.foto=await shrink(f);renderEdit()}catch(err){renderEdit("Não consegui abrir essa foto. Tente outra.")}};
+  $("cancel").onclick=$("cancelTop").onclick=()=>{draft=null;renderRecipe();scrollTo(0,0)};
+  $("saveEdit").onclick=saveEdit;
+}
+// foto quadrada pequena (320 px), recortada no centro
+function shrink(file){
+  return new Promise((ok,fail)=>{
+    const img=new Image(),url=URL.createObjectURL(file);
+    img.onload=()=>{
+      const s=Math.min(img.naturalWidth,img.naturalHeight),N=320,c=document.createElement("canvas");
+      c.width=c.height=N;
+      c.getContext("2d").drawImage(img,(img.naturalWidth-s)/2,(img.naturalHeight-s)/2,s,s,0,0,N,N);
+      URL.revokeObjectURL(url);ok(c.toDataURL("image/jpeg",.82));
+    };
+    img.onerror=()=>{URL.revokeObjectURL(url);fail()};
+    img.src=url;
+  });
+}
+async function saveEdit(){
+  const d=draft, titulo=d.titulo.trim();
+  if(!titulo)return renderEdit("Dê um nome pra receita.");
+  const ingredientes=d.ingredientes.map(i=>({qty:(i.qty||"").trim(),name:(i.name||"").trim(),checked:!!i.checked})).filter(i=>i.qty||i.name);
+  $("saveEdit").textContent="salvando…";
+  await saving;
+  const {error}=await sb.from("receitas").update({titulo,foto:d.foto||null,ingredientes,updated_at:new Date().toISOString()}).eq("id",d.id);
+  if(error)return renderEdit("Não consegui salvar. Confira a internet e tente de novo.");
+  const r=recipes.find(x=>x.id===d.id); if(r)Object.assign(r,{titulo,foto:d.foto||null,ingredientes});
+  cache(); draft=null; renderRecipe(); scrollTo(0,0);
+}
+
+function open(id){current=id;confirmDel=false;draft=null;renderRecipe();scrollTo(0,0)}
+function render(){ if(draft)return; current?renderRecipe():renderList()}
 function cache(){try{localStorage.setItem("receitas-cache",JSON.stringify(recipes))}catch(e){}}
 
 let saving=Promise.resolve();
