@@ -31,10 +31,11 @@ body{margin:0;color:var(--ink);font-family:var(--serif);font-size:15px;line-heig
   padding-top:calc(env(safe-area-inset-top,0px) + 10px);padding-bottom:calc(env(safe-area-inset-bottom,0px) + 12px);
   padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px))}
 .panel{position:relative;max-width:560px;margin:0 auto;min-height:calc(100vh - 22px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));background:var(--paper);overflow:hidden;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='4'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .55 0 0 0 .08 0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E")}
+  background-image:url(papel.png);background-size:256px}
 .c{position:absolute;width:56px;height:56px;border-radius:50%;background:var(--cobalt);z-index:1}
 .tl{left:-28px;top:-28px}.tr{right:-28px;top:-28px}.bl{left:-28px;bottom:-28px}.br{right:-28px;bottom:-28px}
-.in{position:relative;padding:34px 26px 52px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.panel{display:flex;flex-direction:column}
+.in{flex:1;position:relative;padding:34px 26px 52px;display:flex;flex-direction:column;align-items:center;text-align:center}
 h1,h2{margin:0;font-weight:400;font-family:var(--script);color:var(--cobalt);line-height:1;text-wrap:balance}
 .caps{font-weight:500;letter-spacing:.24em;font-size:11.5px;text-transform:uppercase;color:var(--cobalt)}
 button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;padding:0}
@@ -49,6 +50,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,.ing:focus-within{outli
 .msg{font-style:italic;color:var(--soft);font-size:13px;margin:0}
 .msg.err{color:#B4475A}
 
+.in.centered{justify-content:center}
 /* lista */
 .list{width:100%;margin-top:22px;text-align:left}
 .item{display:flex;align-items:center;gap:14px;padding:14px 2px;border-bottom:1px solid var(--line);width:100%;text-align:left}
@@ -134,7 +136,7 @@ textarea.fld{resize:none;overflow:hidden;line-height:1.35;font-size:16px}
 <div class="panel">
   <span class="c tl"></span><span class="c tr"></span><span class="c bl"></span><span class="c br"></span>
 
-  <div class="in" id="auth" hidden>
+  <div class="in centered" id="auth" hidden>
     <div class="caps" style="margin-top:14px">Caderno de</div>
     <h1 style="font-size:clamp(76px,22vw,96px);margin:22px 0 14px">Receitas</h1>
     <p class="msg">Entre com o mesmo e-mail e senha do Casa Nova.</p>
@@ -165,6 +167,7 @@ const safeUrl=u=>/^https?:\/\//i.test(u||"")?u:"";
 try{ const c=localStorage.getItem("receitas-cache"); if(c) recipes=JSON.parse(c)||[]; }catch(e){}
 
 function renderList(){
+  $view.classList.add("centered");
   let html=`<div class="caps" style="margin-top:14px">Caderno de</div>
     <h1 style="font-size:clamp(76px,22vw,96px);margin:22px 0 6px">Receitas</h1>
     <button class="btn" id="btnNew" style="margin-top:8px">+ nova receita</button>`;
@@ -187,6 +190,7 @@ function renderList(){
 }
 
 function renderRecipe(){
+  $view.classList.remove("centered");
   const r=recipes.find(x=>x.id===current);
   if(!r){current=null;return renderList();}
   const ings=r.ingredientes||[], done=ings.filter(i=>i.checked).length;
@@ -234,6 +238,7 @@ function startEdit(r){
 }
 function grow(t){t.style.height="auto";t.style.height=t.scrollHeight+"px"}
 function renderEdit(msg){
+  $view.classList.remove("centered");
   const d=draft;
   $view.innerHTML=`
     <div class="topbar"><button class="back" id="cancelTop">‹ CANCELAR</button><span></span></div>
