@@ -13,7 +13,7 @@
 <link rel="manifest" href="manifest.webmanifest?v=1">
 <title>Receitas</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Crimson+Pro:ital,wght@0,500;0,600;0,700;1,500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Crimson+Pro:ital,wght@0,300;0,400;0,500;1,300&display=swap">
 <style>
 html{-webkit-text-size-adjust:100%}
 [hidden]{display:none!important}
@@ -27,7 +27,7 @@ img{max-width:100%}
 }
 *{box-sizing:border-box}
 html,body{background:var(--cobalt);min-height:100%}
-body{margin:0;color:var(--ink);font-family:var(--serif);font-size:19px;line-height:1.4;font-weight:500;-webkit-font-smoothing:antialiased;
+body{margin:0;color:var(--ink);font-family:var(--serif);font-size:19px;line-height:1.4;font-weight:300;-webkit-font-smoothing:antialiased;
   padding-top:calc(env(safe-area-inset-top,0px) + 10px);padding-bottom:calc(env(safe-area-inset-bottom,0px) + 12px);
   padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px))}
 .panel{position:relative;max-width:560px;margin:0 auto;min-height:calc(100vh - 22px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));background:var(--paper);overflow:hidden;
@@ -36,7 +36,7 @@ body{margin:0;color:var(--ink);font-family:var(--serif);font-size:19px;line-heig
 .tl{left:-28px;top:-28px}.tr{right:-28px;top:-28px}.bl{left:-28px;bottom:-28px}.br{right:-28px;bottom:-28px}
 .in{position:relative;padding:34px 26px 52px;display:flex;flex-direction:column;align-items:center;text-align:center}
 h1,h2{margin:0;font-weight:400;font-family:var(--script);color:var(--cobalt);line-height:1;text-wrap:balance}
-.caps{font-weight:700;letter-spacing:.24em;font-size:14px;text-transform:uppercase;color:var(--cobalt)}
+.caps{font-weight:500;letter-spacing:.24em;font-size:14px;text-transform:uppercase;color:var(--cobalt)}
 button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;padding:0}
 button:focus-visible,a:focus-visible,input:focus-visible,.ing:focus-within{outline:2px solid var(--cobalt);outline-offset:3px}
 .frame{border:1.5px solid var(--cobalt);padding:10px 16px;width:100%;position:relative;display:flex;flex-direction:column;gap:2px;align-items:center}
@@ -57,18 +57,18 @@ button:focus-visible,a:focus-visible,input:focus-visible,.ing:focus-within{outli
 .thumb img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block}
 .thumb svg{width:100%;height:100%;display:block}
 .item .t{min-width:0;flex:1}
-.nm{display:block;font-size:22px;font-weight:600;line-height:1.15;overflow-wrap:anywhere;color:var(--ink)}
-.sub{display:block;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--soft);margin-top:3px;font-weight:700}
+.nm{display:block;font-size:22px;font-weight:300;line-height:1.15;overflow-wrap:anywhere;color:var(--ink)}
+.sub{display:block;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--soft);margin-top:3px;font-weight:500}
 .arrow{color:var(--cobalt);font-size:24px;flex:none}
 .empty{padding:30px 8px;color:var(--soft);font-style:italic}
 .out{margin-top:30px;font-size:14px;font-style:italic;color:var(--soft)}
 
 /* receita */
-.back{align-self:flex-start;font-weight:700;letter-spacing:.18em;font-size:13px;color:var(--cobalt);padding:4px 0}
+.back{align-self:flex-start;font-weight:500;letter-spacing:.18em;font-size:13px;color:var(--cobalt);padding:4px 0}
 .hero-photo{width:104px;height:104px;margin-top:14px}
 h2{font-size:clamp(48px,14vw,68px);margin:14px 0 12px;overflow-wrap:anywhere}
-.src{color:var(--cobalt);font-weight:700;letter-spacing:.14em;font-size:13px;text-transform:uppercase;text-decoration:none}
-h4{font-weight:700;letter-spacing:.26em;font-size:14px;text-transform:uppercase;display:flex;align-items:center;gap:10px;width:100%;margin:24px 0 4px;color:var(--cobalt)}
+.src{color:var(--cobalt);font-weight:500;letter-spacing:.14em;font-size:13px;text-transform:uppercase;text-decoration:none}
+h4{font-weight:500;letter-spacing:.26em;font-size:14px;text-transform:uppercase;display:flex;align-items:center;gap:10px;width:100%;margin:24px 0 4px;color:var(--cobalt)}
 h4::before,h4::after{content:"";flex:1;height:1px;background:var(--cobalt);opacity:.6}
 .count{font-size:15px;color:var(--soft);font-style:italic;margin-bottom:6px;font-variant-numeric:tabular-nums}
 .ings{list-style:none;margin:0;padding:0;width:100%;text-align:left}
@@ -77,7 +77,7 @@ h4::before,h4::after{content:"";flex:1;height:1px;background:var(--cobalt);opaci
 .cb{width:21px;height:21px;border:1.5px solid var(--cobalt);border-radius:50%;flex:none;display:grid;place-items:center;transition:background .15s}
 .cb svg{opacity:0}
 .ing .tx{flex:1;min-width:0}
-.ing b{font-weight:700;color:var(--cobalt)}
+.ing b{font-weight:500;color:var(--cobalt)}
 .ing.on .tx{color:var(--soft);text-decoration:line-through;text-decoration-color:var(--cobalt)}
 .ing.on b{color:var(--soft)}
 .ing.on .cb{background:var(--cobalt)}
@@ -89,18 +89,18 @@ h4::before,h4::after{content:"";flex:1;height:1px;background:var(--cobalt);opaci
 .steps span{min-width:0}
 .tip{margin-top:22px;width:100%;font-style:italic}
 .danger{margin-top:30px;display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap}
-.btn{border:1.5px solid var(--cobalt);color:var(--cobalt);border-radius:99px;padding:9px 20px;font-weight:700;letter-spacing:.14em;font-size:12px;text-transform:uppercase}
+.btn{border:1.5px solid var(--cobalt);color:var(--cobalt);border-radius:99px;padding:9px 20px;font-weight:500;letter-spacing:.14em;font-size:12px;text-transform:uppercase}
 .btn.fill{background:var(--cobalt);color:var(--paper)}
 .note{font-style:italic;color:var(--soft);font-size:16px;width:100%}
 
 /* edição */
 .topbar{display:flex;justify-content:space-between;align-items:center;width:100%}
 .topbar .back{align-self:auto}
-.edit-link{font-weight:700;letter-spacing:.18em;font-size:13px;color:var(--cobalt);padding:4px 0}
+.edit-link{font-weight:500;letter-spacing:.18em;font-size:13px;color:var(--cobalt);padding:4px 0}
 .fld{font:inherit;color:var(--ink);background:transparent;border:0;border-bottom:1.5px solid var(--line);padding:8px 2px;border-radius:0;width:100%;min-width:0}
 .fld:focus{border-bottom-color:var(--cobalt);outline:none}
 .fld::placeholder{color:var(--soft);font-style:italic}
-.fld.title{font-size:24px;font-weight:600;text-align:center;border-bottom-color:var(--cobalt)}
+.fld.title{font-size:24px;font-weight:300;text-align:center;border-bottom-color:var(--cobalt)}
 .photo-edit{display:flex;flex-direction:column;align-items:center;gap:8px;margin:16px 0 8px}
 .photo-edit .thumb{width:104px;height:104px}
 .photo-btns{display:flex;gap:16px}
