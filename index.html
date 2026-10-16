@@ -114,6 +114,9 @@ h4::before,h4::after{content:"";flex:1;height:1px;background:var(--cobalt);opaci
 .rm:hover{color:#B4475A}
 .add{margin-top:10px;font-size:16px;font-style:italic;color:var(--cobalt)}
 .actions{margin-top:30px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.srow{align-items:flex-start}
+.snum{font-family:var(--script);font-style:normal;font-size:28px;color:var(--cobalt);width:22px;flex:none;line-height:1;padding-top:8px;text-align:center}
+textarea.fld{resize:none;overflow:hidden;line-height:1.35;font-size:17px}
 #fileIn{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -163,11 +166,12 @@ try{ const c=localStorage.getItem("receitas-cache"); if(c) recipes=JSON.parse(c)
 
 function renderList(){
   let html=`<div class="caps" style="margin-top:14px">Caderno de</div>
-    <h1 style="font-size:clamp(76px,22vw,96px);margin:22px 0 6px">Receitas</h1>`;
+    <h1 style="font-size:clamp(76px,22vw,96px);margin:22px 0 6px">Receitas</h1>
+    <button class="btn" id="btnNew" style="margin-top:8px">+ nova receita</button>`;
   if(recipes.length){
     html+=`<div class="list">${recipes.map(r=>{
-      const ings=r.ingredientes||[], done=ings.filter(i=>i.checked).length;
-      const status=!ings.length?"":done===ings.length?"tudo comprado":`${done} de ${ings.length} comprados`;
+      const n=(r.ingredientes||[]).length;
+      const status=n?`${n} ingrediente${n>1?"s":""}`:"";
       return `<button class="item" data-id="${esc(r.id)}">${thumb(r)}
         <span class="t"><span class="nm">${esc(r.titulo)}</span>
         <span class="sub">${[r.exemplo?"exemplo":"",r.tempo,status].filter(Boolean).map(esc).join(" · ")}</span></span>
@@ -179,6 +183,7 @@ function renderList(){
   $view.innerHTML=html;
   $view.querySelectorAll(".item").forEach(b=>b.onclick=()=>open(b.dataset.id));
   $("btnLogout").onclick=async()=>{await sb.auth.signOut();setSession(null)};
+  $("btnNew").onclick=()=>startEdit(null);
 }
 
 function renderRecipe(){
@@ -218,17 +223,21 @@ function renderRecipe(){
   };
 }
 
-/* ---------- edição ---------- */
+/* ---------- edição (e receita nova) ---------- */
 let draft=null;
 function startEdit(r){
-  draft={id:r.id,titulo:r.titulo||"",foto:r.foto||"",ingredientes:(r.ingredientes||[]).map(i=>({...i}))};
+  draft=r?{id:r.id,titulo:r.titulo||"",foto:r.foto||"",ingredientes:(r.ingredientes||[]).map(i=>({...i})),passos:[...(r.passos||[])]}
+         :{id:null,titulo:"",foto:"",ingredientes:[],passos:[]};
   if(!draft.ingredientes.length)draft.ingredientes.push({qty:"",name:"",checked:false});
+  if(!draft.passos.length)draft.passos.push("");
   renderEdit();scrollTo(0,0);
 }
+function grow(t){t.style.height="auto";t.style.height=t.scrollHeight+"px"}
 function renderEdit(msg){
   const d=draft;
   $view.innerHTML=`
     <div class="topbar"><button class="back" id="cancelTop">‹ CANCELAR</button><span></span></div>
+    ${d.id?"":'<div class="caps" style="margin-top:14px">Nova receita</div>'}
     <div class="photo-edit">${thumb({foto:d.foto})}
       <div class="photo-btns"><button class="linkbtn" id="pick">${d.foto?"trocar foto":"colocar foto"}</button>${d.foto?'<button class="linkbtn muted" id="nofoto">remover foto</button>':""}</div>
       <input type="file" id="fileIn" accept="image/*">
@@ -242,17 +251,27 @@ function renderEdit(msg){
         <button class="rm" data-rm="${k}" aria-label="Remover ingrediente">×</button>
       </div>`).join("")}</div>
     <button class="add" id="addIng">+ ingrediente</button>
+    <h4>Modo de preparo</h4>
+    <div style="width:100%;display:flex;flex-direction:column;gap:4px">${d.passos.map((p,k)=>`
+      <div class="erow srow"><i class="snum">${k+1}</i>
+        <textarea class="fld n" rows="1" id="es-${k}" data-s="${k}" placeholder="descreva o passo" aria-label="Passo ${k+1}">${esc(p)}</textarea>
+        <button class="rm" data-rms="${k}" aria-label="Remover passo">×</button>
+      </div>`).join("")}</div>
+    <button class="add" id="addStep">+ passo</button>
     ${msg?`<p class="msg err" style="margin-top:14px">${esc(msg)}</p>`:""}
     <div class="actions"><button class="btn" id="cancel">cancelar</button><button class="btn fill" id="saveEdit">salvar</button></div>`;
   $("eTitle").oninput=e=>{d.titulo=e.target.value};
-  $view.querySelectorAll(".erow .fld").forEach(inp=>inp.oninput=()=>{d.ingredientes[+inp.dataset.k][inp.dataset.f]=inp.value});
+  $view.querySelectorAll(".erow input.fld").forEach(inp=>inp.oninput=()=>{d.ingredientes[+inp.dataset.k][inp.dataset.f]=inp.value});
+  $view.querySelectorAll("textarea[data-s]").forEach(t=>{grow(t);t.oninput=()=>{d.passos[+t.dataset.s]=t.value;grow(t)}});
   $view.querySelectorAll("[data-rm]").forEach(b=>b.onclick=()=>{d.ingredientes.splice(+b.dataset.rm,1);renderEdit()});
-  $("addIng").onclick=()=>{d.ingredientes.push({qty:"",name:"",checked:false});renderEdit();const k=d.ingredientes.length-1;$("eq-"+k).focus()};
+  $view.querySelectorAll("[data-rms]").forEach(b=>b.onclick=()=>{d.passos.splice(+b.dataset.rms,1);renderEdit()});
+  $("addIng").onclick=()=>{d.ingredientes.push({qty:"",name:"",checked:false});renderEdit();$("eq-"+(d.ingredientes.length-1)).focus()};
+  $("addStep").onclick=()=>{d.passos.push("");renderEdit();$("es-"+(d.passos.length-1)).focus()};
   $("pick").onclick=()=>$("fileIn").click();
   if($("nofoto"))$("nofoto").onclick=()=>{d.foto="";renderEdit()};
   $("fileIn").onchange=async e=>{const f=e.target.files[0];if(!f)return;
     try{d.foto=await shrink(f);renderEdit()}catch(err){renderEdit("Não consegui abrir essa foto. Tente outra.")}};
-  $("cancel").onclick=$("cancelTop").onclick=()=>{draft=null;renderRecipe();scrollTo(0,0)};
+  $("cancel").onclick=$("cancelTop").onclick=()=>{const wasNew=!d.id;draft=null;if(wasNew){current=null;renderList()}else renderRecipe();scrollTo(0,0)};
   $("saveEdit").onclick=saveEdit;
 }
 // foto quadrada pequena (320 px), recortada no centro
@@ -273,11 +292,20 @@ async function saveEdit(){
   const d=draft, titulo=d.titulo.trim();
   if(!titulo)return renderEdit("Dê um nome pra receita.");
   const ingredientes=d.ingredientes.map(i=>({qty:(i.qty||"").trim(),name:(i.name||"").trim(),checked:!!i.checked})).filter(i=>i.qty||i.name);
+  const passos=d.passos.map(p=>(p||"").trim()).filter(Boolean);
+  const body={titulo,foto:d.foto||null,ingredientes,passos,updated_at:new Date().toISOString()};
   $("saveEdit").textContent="salvando…";
   await saving;
-  const {error}=await sb.from("receitas").update({titulo,foto:d.foto||null,ingredientes,updated_at:new Date().toISOString()}).eq("id",d.id);
-  if(error)return renderEdit("Não consegui salvar. Confira a internet e tente de novo.");
-  const r=recipes.find(x=>x.id===d.id); if(r)Object.assign(r,{titulo,foto:d.foto||null,ingredientes});
+  if(d.id){
+    const {error}=await sb.from("receitas").update(body).eq("id",d.id);
+    if(error)return renderEdit("Não consegui salvar. Confira a internet e tente de novo.");
+    const r=recipes.find(x=>x.id===d.id); if(r)Object.assign(r,body);
+    current=d.id;
+  } else {
+    const {data,error}=await sb.from("receitas").insert(body).select().single();
+    if(error||!data)return renderEdit("Não consegui salvar. Confira a internet e tente de novo.");
+    recipes.unshift(data); current=data.id;
+  }
   cache(); draft=null; renderRecipe(); scrollTo(0,0);
 }
 
