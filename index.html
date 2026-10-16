@@ -174,7 +174,7 @@ function renderList(){
       const status=n?`${n} ingrediente${n>1?"s":""}`:"";
       return `<button class="item" data-id="${esc(r.id)}">${thumb(r)}
         <span class="t"><span class="nm">${esc(r.titulo)}</span>
-        <span class="sub">${[r.exemplo?"exemplo":"",r.tempo,status].filter(Boolean).map(esc).join(" · ")}</span></span>
+        <span class="sub">${esc(status)}</span></span>
         <span class="arrow" aria-hidden="true">›</span></button>`}).join("")}</div>`;
   } else {
     html+=`<div class="empty">${loaded?"Nenhuma receita ainda.":"Abrindo o caderno…"}</div>`;
