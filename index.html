@@ -225,9 +225,14 @@ function renderRecipe(){
 
 /* ---------- edição (e receita nova) ---------- */
 let draft=null;
-function startEdit(r){
+async function startEdit(r){
+  if(r){ // busca a versão mais recente antes de editar
+    const {data}=await sb.from("receitas").select("*").eq("id",r.id).single();
+    if(data){ const i=recipes.findIndex(x=>x.id===r.id); if(i>=0)recipes[i]=data; r=data; cache(); }
+  }
   draft=r?{id:r.id,titulo:r.titulo||"",foto:r.foto||"",video_url:r.video_url||"",ingredientes:(r.ingredientes||[]).map(i=>({...i})),passos:[...(r.passos||[])]}
          :{id:null,titulo:"",foto:"",video_url:"",ingredientes:[],passos:[]};
+  draft.orig=JSON.stringify({titulo:draft.titulo,foto:draft.foto||null,video_url:draft.video_url||null,ingredientes:draft.ingredientes,passos:draft.passos});
   if(!draft.ingredientes.length)draft.ingredientes.push({qty:"",name:"",checked:false});
   if(!draft.passos.length)draft.passos.push("");
   renderEdit();scrollTo(0,0);
@@ -302,9 +307,12 @@ async function saveEdit(){
   $("saveEdit").textContent="salvando…";
   await saving;
   if(d.id){
-    const {error}=await sb.from("receitas").update(body).eq("id",d.id);
+    // salva só o que mudou, pra nunca sobrescrever outra coisa
+    const o=JSON.parse(d.orig), changed={updated_at:body.updated_at};
+    for(const k of ["titulo","foto","video_url","ingredientes","passos"]) if(JSON.stringify(body[k])!==JSON.stringify(o[k]===""?null:o[k])) changed[k]=body[k];
+    const {error}=await sb.from("receitas").update(changed).eq("id",d.id);
     if(error)return renderEdit("Não consegui salvar. Confira a internet e tente de novo.");
-    const r=recipes.find(x=>x.id===d.id); if(r)Object.assign(r,body);
+    const r=recipes.find(x=>x.id===d.id); if(r)Object.assign(r,changed);
     current=d.id;
   } else {
     const {data,error}=await sb.from("receitas").insert(body).select().single();
