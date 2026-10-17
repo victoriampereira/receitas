@@ -121,6 +121,27 @@ h4{font-family:var(--script);font-weight:400;font-size:38px;line-height:1;margin
 .snum{font-family:var(--display);font-style:normal;font-size:20px;width:18px;flex:none;line-height:1;padding-top:10px;text-align:center}
 textarea.fld{resize:none;overflow:hidden;line-height:1.4}
 #fileIn{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+
+/* abas e conversor */
+.tabs{display:flex;gap:14px;align-items:center;justify-content:center;margin-top:22px;font-size:12.5px}
+.tabs button{color:var(--soft);padding:4px 2px}
+.tabs button.on{color:var(--red);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.tabs i{font-style:normal;font-size:9px;color:var(--soft)}
+.conv{width:100%;margin-top:26px;display:flex;flex-direction:column;align-items:center;gap:10px}
+.crow{display:flex;gap:10px;align-items:flex-end;justify-content:center;flex-wrap:wrap;width:100%}
+.conv input,.conv select{font:inherit;font-size:16px;color:var(--red);background:transparent;border:0;border-bottom:1px solid var(--red);border-radius:0;padding:6px 2px;-webkit-appearance:none;appearance:none;text-align:center}
+.conv input{width:64px}
+.conv select{padding-right:16px;background-image:linear-gradient(45deg,transparent 50%,var(--red) 50%),linear-gradient(135deg,var(--red) 50%,transparent 50%);background-position:right 5px bottom 13px,right 1px bottom 13px;background-size:4px 4px;background-repeat:no-repeat;text-align:left;text-align-last:left;max-width:100%}
+.conv .de{font-size:12.5px;color:var(--soft);padding-bottom:8px}
+.res{font-family:var(--name);font-weight:500;font-size:44px;line-height:1.05;margin-top:10px;font-variant-numeric:tabular-nums}
+.res small{display:block;font-family:var(--type);font-size:11.5px;color:var(--soft);margin-top:6px}
+.tbl{width:100%;border-collapse:collapse;font-size:12px;margin-top:4px;font-variant-numeric:tabular-nums}
+.tbl th{white-space:nowrap;padding-left:8px!important;font-weight:400;color:var(--soft);font-size:10.5px;text-align:right;padding:0 0 8px;border-bottom:1px solid var(--line)}
+.tbl th:first-child,.tbl td:first-child{text-align:left}
+.tbl td{text-align:right;padding:8px 0;border-bottom:1px solid var(--line);white-space:nowrap}
+.tbl td:first-child{white-space:normal;padding-right:8px}
+.tbl tr.sel td{font-weight:700}
+.fine{font-size:10.5px;color:var(--soft);margin-top:12px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -159,12 +180,63 @@ const safeUrl=u=>/^https?:\/\//i.test(u||"")?u:"";
 
 try{ const c=localStorage.getItem("receitas-cache"); if(c) recipes=JSON.parse(c)||[]; }catch(e){}
 
+/* ---------- conversor de medidas (medidas rasas; xícara 240 ml, c. sopa 15 ml, c. chá 5 ml) ---------- */
+const MED=[ // [ingrediente, gramas por xícara, líquido?]
+ ["farinha de trigo",120],["açúcar refinado",200],["açúcar mascavo",180],["açúcar de confeiteiro",140],
+ ["manteiga",200],["chocolate em pó / cacau",90],["amido de milho",120],["leite em pó",120],
+ ["aveia em flocos",80],["coco ralado",80],["fubá",120],["arroz cru",200],["leite condensado",300],
+ ["mel",340],["fermento em pó",220],["bicarbonato de sódio",240],["sal",290],
+ ["leite",240,1],["água",240,1],["óleo",220,1]];
+const UN={"xícara":1,"colher de sopa":1/16,"colher de chá":1/48};
+let tab="receitas", conv={q:"1",u:"xícara",i:0};
+function parseQ(t){t=String(t||"").trim().toLowerCase().replace(",",".");if(!t)return NaN;
+  let tot=0;for(const p of t.split(/\s+e\s+|\s+/)){if(!p)continue;const f=p.match(/^(\d+(?:\.\d+)?)\/(\d+(?:\.\d+)?)$/);
+    const v=f?(+f[1])/(+f[2]):+p;if(isNaN(v))return NaN;tot+=v}return tot}
+const fmtG=g=>g<20?(Math.round(g*2)/2).toLocaleString("pt-BR"):String(Math.round(g));
+const fmtN=n=>(Math.round(n*100)/100).toLocaleString("pt-BR");
+function tabsHtml(){return `<nav class="tabs"><button id="tR" class="${tab==="receitas"?"on":""}">receitas</button><i>✦</i><button id="tM" class="${tab==="medidas"?"on":""}">medidas</button></nav>`}
+function bindTabs(){$("tR").onclick=()=>{tab="receitas";renderList()};$("tM").onclick=()=>{tab="medidas";renderList()}}
+function convResult(){
+  const [nm,cup,liq]=MED[conv.i], q=parseQ(conv.q);
+  if(isNaN(q)||q<=0)return `<div class="res">—<small>digite uma quantidade, ex: 2, 1/2 ou 1 e 1/2</small></div>`;
+  if(conv.u==="gramas"){const x=q/cup;
+    return `<div class="res">${fmtN(x)} xíc.<small>≈ ${fmtN(x*16)} colheres de sopa · ${fmtN(x*48)} colheres de chá</small></div>`}
+  const g=q*UN[conv.u]*cup, ml=q*UN[conv.u]*240;
+  return `<div class="res">${liq?fmtG(ml)+" ml":fmtG(g)+" g"}${liq?`<small>≈ ${fmtG(g)} g</small>`:""}</div>`;
+}
+function renderConv(){
+  $view.classList.add("centered");
+  $view.innerHTML=`<div class="oval">${OVAL}
+      <div class="kicker">Caderno de</div><div class="script">receitas</div><div class="spark">✦</div>
+    </div>${tabsHtml()}
+    <div class="conv">
+      <div class="crow">
+        <input id="cQ" inputmode="decimal" value="${esc(conv.q)}" aria-label="Quantidade">
+        <select id="cU" aria-label="Medida">${[...Object.keys(UN),"gramas"].map(u=>`<option ${u===conv.u?"selected":""}>${u}</option>`).join("")}</select>
+      </div>
+      <div class="crow"><span class="de">de</span>
+        <select id="cI" aria-label="Ingrediente">${MED.map((m,k)=>`<option value="${k}" ${k==conv.i?"selected":""}>${m[0]}</option>`).join("")}</select>
+      </div>
+      <div id="cR">${convResult()}</div>
+      <h4>tabela</h4>
+      <table class="tbl"><thead><tr><th>ingrediente</th><th>xícara</th><th>c. sopa</th><th>c. chá</th></tr></thead><tbody>
+      ${MED.map(([n,c,l],k)=>`<tr class="${k==conv.i?"sel":""}"><td>${n}</td><td>${l?"240 ml":c+" g"}</td><td>${l?"15 ml":fmtG(c/16)+" g"}</td><td>${l?"5 ml":fmtG(c/48)+" g"}</td></tr>`).join("")}
+      </tbody></table>
+      <div class="fine">medidas rasas · xícara de 240 ml · valores aproximados</div>
+    </div>`;
+  bindTabs();
+  $("cQ").oninput=e=>{conv.q=e.target.value;$("cR").innerHTML=convResult()};
+  $("cU").onchange=e=>{conv.u=e.target.value;$("cR").innerHTML=convResult()};
+  $("cI").onchange=e=>{conv.i=+e.target.value;renderConv()};
+}
+
 function renderList(){
+  if(tab==="medidas")return renderConv();
   $view.classList.add("centered");
   let html=`<div class="oval">${OVAL}
       <div class="kicker">Caderno de</div><div class="script">receitas</div><div class="spark">✦</div>
       <button class="newbtn u" id="btnNew">+ nova receita</button>
-    </div>`;
+    </div>${tabsHtml()}`;
   if(recipes.length){
     html+=`<div class="list">${recipes.map(r=>{
       const n=(r.ingredientes||[]).length;
@@ -177,6 +249,7 @@ function renderList(){
   $view.querySelectorAll(".item").forEach(b=>b.onclick=()=>open(b.dataset.id));
   $("btnLogout").onclick=async()=>{await sb.auth.signOut();setSession(null)};
   $("btnNew").onclick=()=>startEdit(null);
+  bindTabs();
 }
 
 function renderRecipe(){
@@ -323,7 +396,7 @@ async function saveEdit(){
 }
 
 function open(id){current=id;confirmDel=false;draft=null;renderRecipe();scrollTo(0,0)}
-function render(){ if(draft)return; current?renderRecipe():renderList()}
+function render(){ if(draft)return; if(!current&&tab==="medidas")return; current?renderRecipe():renderList()}
 function cache(){try{localStorage.setItem("receitas-cache",JSON.stringify(recipes))}catch(e){}}
 
 let saving=Promise.resolve();
