@@ -183,9 +183,7 @@ try{ const c=localStorage.getItem("receitas-cache"); if(c) recipes=JSON.parse(c)
 /* ---------- conversor de medidas (medidas rasas; xícara 240 ml, c. sopa 15 ml, c. chá 5 ml) ---------- */
 const MED=[ // [ingrediente, gramas por xícara, líquido?]
  ["farinha de trigo",120],["açúcar refinado",200],["açúcar mascavo",180],["açúcar de confeiteiro",140],
- ["manteiga",200],["chocolate em pó / cacau",90],["amido de milho",120],["leite em pó",120],
- ["aveia em flocos",80],["coco ralado",80],["fubá",120],["arroz cru",200],["leite condensado",300],
- ["mel",340],["fermento em pó",220],["bicarbonato de sódio",240],["sal",290],
+ ["manteiga",200],["chocolate em pó / cacau",90],["fermento em pó",220],["bicarbonato de sódio",240],["sal",290],
  ["leite",240,1],["água",240,1],["óleo",220,1]];
 const UN={"xícara":1,"colher de sopa":1/16,"colher de chá":1/48};
 let tab="receitas", conv={q:"1",u:"xícara",i:0};
