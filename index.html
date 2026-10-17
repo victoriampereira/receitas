@@ -13,7 +13,7 @@
 <link rel="manifest" href="manifest.webmanifest?v=3">
 <title>Caderno de Receitas</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kalnia:wght@300;400&family=Pinyon+Script&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kalnia:wght@300;400&family=Cormorant+Garamond:wght@500&family=Pinyon+Script&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap">
 <style>
 html{-webkit-text-size-adjust:100%}
 [hidden]{display:none!important}
@@ -22,6 +22,7 @@ img{max-width:100%}
 :root{
   --bg:#E9E2DA; --red:#8C1515; --soft:#A7655E; --line:rgba(140,21,21,.22); --hi:rgba(255,252,246,.85); --sh:rgba(95,70,55,.28);
   --display:"Kalnia","Didot","Bodoni 72",Georgia,serif;
+  --name:"Cormorant Garamond",Garamond,Georgia,serif;
   --script:"Pinyon Script","Snell Roundhand",cursive;
   --type:"Courier Prime","Courier New",monospace;
   color-scheme:light;
@@ -57,7 +58,7 @@ a{color:inherit}
 .list{width:100%;margin-top:26px;display:flex;flex-direction:column;align-items:center}
 .item{display:flex;flex-direction:column;align-items:center;gap:3px;padding:12px 6px;width:100%}
 .item+.item::before{content:"";display:block;width:26px;height:1px;background:var(--line);margin:-12px auto 12px}
-.nm{font-family:var(--display);font-weight:400;font-size:20px;line-height:1.15;text-wrap:balance;overflow-wrap:anywhere}
+.nm{font-family:var(--name);font-weight:500;font-size:22px;line-height:1.15;text-wrap:balance;overflow-wrap:anywhere}
 .sub{font-size:11px;color:var(--soft)}
 .empty{padding:26px 8px;color:var(--soft)}
 .out{margin-top:30px;font-size:11.5px;color:var(--soft)}
@@ -66,7 +67,7 @@ a{color:inherit}
 .topbar{display:flex;justify-content:space-between;align-items:center;width:100%;font-size:12.5px}
 .arch{width:150px;aspect-ratio:5/6;border-radius:999px 999px 6px 6px;overflow:hidden;margin-top:22px;outline:1px solid var(--red);outline-offset:4px}
 .arch img{width:100%;height:100%;object-fit:cover;display:block}
-h2{font-family:var(--display);font-weight:400;font-size:clamp(28px,8.5vw,36px);line-height:1.1;margin:22px 0 12px;text-wrap:balance;overflow-wrap:anywhere}
+h2{font-family:var(--name);font-weight:500;font-size:clamp(30px,9vw,38px);line-height:1.1;margin:22px 0 12px;text-wrap:balance;overflow-wrap:anywhere}
 .video{font-size:12.5px;display:flex;gap:6px;align-items:center;justify-content:center;flex-wrap:wrap;width:100%}
 .vlink{display:flex;gap:8px;align-items:center;width:100%;max-width:320px;margin:0 auto}
 .vlink input{flex:1;min-width:0;font:inherit;font-size:16px;color:var(--red);background:transparent;border:0;border-bottom:1px dashed var(--soft);padding:6px 2px;border-radius:0}
@@ -104,7 +105,7 @@ h4{font-family:var(--script);font-weight:400;font-size:38px;line-height:1;margin
 .fld{font:inherit;font-size:16px;color:var(--red);background:transparent;border:0;border-bottom:1px solid var(--line);padding:8px 2px;border-radius:0;width:100%;min-width:0}
 .fld:focus{border-bottom-color:var(--red);outline:none}
 .fld::placeholder{color:var(--soft)}
-.fld.title{font-family:var(--display);font-size:22px;text-align:center;border-bottom-color:var(--red)}
+.fld.title{font-family:var(--name);font-weight:500;font-size:22px;text-align:center;border-bottom-color:var(--red)}
 .label{font-size:11px;color:var(--soft);align-self:flex-start;margin-top:18px}
 .photo-edit{display:flex;flex-direction:column;align-items:center;gap:12px;margin:4px 0 18px}
 .photo-edit .arch{width:110px}
