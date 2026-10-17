@@ -3,150 +3,147 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#F7F2E8">
+<meta name="theme-color" content="#E9E2DA">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Caderno de Receitas">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon-r.png?v=2">
-<link rel="icon" type="image/png" href="favicon-r.png?v=2">
-<link rel="manifest" href="manifest.webmanifest?v=2">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon-r.png?v=3">
+<link rel="icon" type="image/png" href="favicon-r.png?v=3">
+<link rel="manifest" href="manifest.webmanifest?v=3">
 <title>Caderno de Receitas</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Jost:wght@300;400;500;600&family=Ephesis&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kalnia:wght@300;400&family=Pinyon+Script&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap">
 <style>
 html{-webkit-text-size-adjust:100%}
 [hidden]{display:none!important}
 img{max-width:100%}
-/* Layout: papel creme de convite, flores tropicais pintadas nos cantos; uma coluna estreita centralizada */
+/* Layout: papel bege com relevo, tudo em vermelho; título dentro de uma moldura oval rendada; lista centralizada como um cardápio */
 :root{
-  --red:#8E1B1B; --ink:#4A4340; --soft:#8A7F79; --paper:#F7F2E8; --line:rgba(142,27,27,.18); --err:#B4475A;
-  --display:"Instrument Serif","Didot",Georgia,serif;
-  --sans:"Jost","Avenir Next",system-ui,sans-serif;
-  --script:"Ephesis","Snell Roundhand",cursive;
+  --bg:#E9E2DA; --red:#8C1515; --soft:#A7655E; --line:rgba(140,21,21,.22); --hi:rgba(255,252,246,.85); --sh:rgba(95,70,55,.28);
+  --display:"Kalnia","Didot","Bodoni 72",Georgia,serif;
+  --script:"Pinyon Script","Snell Roundhand",cursive;
+  --type:"Courier Prime","Courier New",monospace;
   color-scheme:light;
 }
 *{box-sizing:border-box}
-html,body{background:var(--paper);min-height:100%}
-body{margin:0;color:var(--ink);font-family:var(--sans);font-size:14.5px;line-height:1.45;font-weight:300;-webkit-font-smoothing:antialiased;
+html,body{background:var(--bg);min-height:100%}
+body{margin:0;color:var(--red);font-family:var(--type);font-size:13.5px;line-height:1.5;-webkit-font-smoothing:antialiased;
   background-image:url(papel.png);background-size:256px}
-.panel{position:relative;max-width:560px;margin:0 auto;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;overflow:hidden;
+.panel{max-width:520px;margin:0 auto;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;
   padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-.deco{position:absolute;inset:0;pointer-events:none;z-index:0}
-.deco img{position:absolute;display:block;filter:drop-shadow(0 2px 3px rgba(80,40,20,.12))}
-.in{flex:1;position:relative;z-index:1;padding:40px 30px 56px;padding-left:max(30px,env(safe-area-inset-left,0px));padding-right:max(30px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;align-items:center;text-align:center}
+.in{flex:1;padding:34px 30px 56px;padding-left:max(30px,env(safe-area-inset-left,0px));padding-right:max(30px,env(safe-area-inset-right,0px));
+  display:flex;flex-direction:column;align-items:center;text-align:center}
 .in.centered{justify-content:center}
-.in.page{padding-top:118px;padding-bottom:150px}
-h1,h2{margin:0;font-weight:400;font-family:var(--display);color:var(--red);line-height:.95;text-wrap:balance;text-transform:uppercase;letter-spacing:.01em}
-h1{font-size:clamp(46px,14vw,62px);transform:scaleY(1.12);margin:6px 0 18px}
-h1 span{display:block}
-.caps{font-weight:400;letter-spacing:.18em;font-size:11px;text-transform:uppercase;color:var(--ink)}
-button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;padding:0}
-button:focus-visible,a:focus-visible,input:focus-visible,.ing:focus-within{outline:2px solid var(--red);outline-offset:3px}
-.rule{display:flex;align-items:center;gap:10px;width:100%;color:var(--ink);font-weight:400;letter-spacing:.14em;font-size:11px;text-transform:uppercase}
-.rule::before,.rule::after{content:"";flex:1;height:1px;background:var(--red);box-shadow:0 4px 0 var(--red);transform:translateY(-2px)}
-.rule b{font-family:var(--display);font-weight:400;color:var(--red);font-size:40px;letter-spacing:0;line-height:1}
-.newbtn{letter-spacing:.14em;font-size:11px;text-transform:uppercase;font-weight:500;color:var(--red);padding:6px 4px}
-.sig{font-family:var(--script);font-size:38px;color:var(--ink);margin-top:22px;line-height:1}
+button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;padding:0;-webkit-tap-highlight-color:transparent}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,.ing:focus-within{outline:1.5px solid var(--red);outline-offset:3px}
+a{color:inherit}
+.u{text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
 
-/* login */
-.auth{width:100%;display:flex;flex-direction:column;gap:12px;margin-top:18px}
-.auth input{font:inherit;font-size:16px;color:var(--ink);background:transparent;border:0;border-bottom:1px solid var(--red);padding:10px 2px;border-radius:0;width:100%}
-.auth input::placeholder{color:var(--soft)}
-.msg{color:var(--soft);font-size:13px;margin:0}
-.msg.err{color:var(--err)}
+/* moldura oval em relevo */
+.oval{position:relative;width:min(300px,80vw);aspect-ratio:320/380;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.oval svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.e1{fill:none;stroke:var(--hi);stroke-width:1.6;transform:translate(-.9px,-.9px)}
+.e2{fill:none;stroke:var(--sh);stroke-width:1.2;transform:translate(.7px,.8px)}
+.e1 ellipse+ellipse,.e2 ellipse+ellipse{stroke:none}
+.e1 ellipse+ellipse{fill:var(--hi)} .e2 ellipse+ellipse{fill:var(--sh)}
+.oval>*:not(svg){position:relative}
+.kicker{font-family:var(--display);font-weight:400;font-size:clamp(22px,7vw,28px);letter-spacing:.06em;line-height:1;text-transform:uppercase;margin-top:6px}
+.script{font-family:var(--script);font-size:clamp(58px,18vw,76px);line-height:1;margin:-6px 0 6px;padding:0 6px}
+.spark{font-size:12px;line-height:1}
+.newbtn{font-size:12.5px;margin-top:14px}
 
 /* lista */
-.list{width:100%;margin-top:18px;text-align:left}
-.item{display:flex;align-items:center;gap:13px;padding:11px 0;border-bottom:1px solid var(--line);width:100%;text-align:left}
-.item:last-child{border-bottom:0}
-.thumb{width:50px;height:50px;border-radius:50%;flex:none;border:1px solid var(--red);padding:2.5px;background:var(--paper);display:block}
-.thumb img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block}
-.thumb img.fl{object-fit:contain;padding:4px}
-.item .t{min-width:0;flex:1}
-.nm{display:block;font-family:var(--display);font-size:20px;line-height:1.1;overflow-wrap:anywhere;color:var(--red)}
-.sub{display:block;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--soft);margin-top:3px;font-weight:400}
-.arrow{color:var(--red);font-size:19px;flex:none}
-.empty{padding:30px 8px;color:var(--soft)}
-.out{margin-top:26px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)}
+.list{width:100%;margin-top:26px;display:flex;flex-direction:column;align-items:center}
+.item{display:flex;flex-direction:column;align-items:center;gap:3px;padding:12px 6px;width:100%}
+.item+.item::before{content:"";display:block;width:26px;height:1px;background:var(--line);margin:-12px auto 12px}
+.nm{font-family:var(--display);font-weight:400;font-size:20px;line-height:1.15;text-wrap:balance;overflow-wrap:anywhere}
+.sub{font-size:11px;color:var(--soft)}
+.empty{padding:26px 8px;color:var(--soft)}
+.out{margin-top:30px;font-size:11.5px;color:var(--soft)}
 
 /* receita */
-.back{align-self:flex-start;font-weight:600;letter-spacing:.18em;font-size:10.5px;color:var(--red);padding:4px 0;text-transform:uppercase}
-.hero-photo{width:96px;height:96px;margin-top:10px}
-h2{font-size:clamp(36px,11vw,46px);transform:scaleY(1.12);margin:14px 0 14px;overflow-wrap:anywhere}
-.src{color:var(--red);font-weight:500;letter-spacing:.14em;font-size:10px;text-transform:uppercase;text-decoration:none;margin-top:8px}
-h4{font-weight:600;letter-spacing:.16em;font-size:11.5px;text-transform:uppercase;width:100%;margin:24px 0 2px;color:var(--red)}
-.count{font-size:11.5px;color:var(--soft);margin-bottom:6px;font-variant-numeric:tabular-nums}
+.topbar{display:flex;justify-content:space-between;align-items:center;width:100%;font-size:12.5px}
+.arch{width:150px;aspect-ratio:5/6;border-radius:999px 999px 6px 6px;overflow:hidden;margin-top:22px;outline:1px solid var(--red);outline-offset:4px}
+.arch img{width:100%;height:100%;object-fit:cover;display:block}
+h2{font-family:var(--display);font-weight:400;font-size:clamp(28px,8.5vw,36px);line-height:1.1;margin:22px 0 12px;text-wrap:balance;overflow-wrap:anywhere}
+.video{font-size:12.5px;display:flex;gap:6px;align-items:center;justify-content:center;flex-wrap:wrap;width:100%}
+.vlink{display:flex;gap:8px;align-items:center;width:100%;max-width:320px;margin:0 auto}
+.vlink input{flex:1;min-width:0;font:inherit;font-size:16px;color:var(--red);background:transparent;border:0;border-bottom:1px dashed var(--soft);padding:6px 2px;border-radius:0}
+.vlink input::placeholder{color:var(--soft)}
+.vlink button{font-size:12.5px}
+h4{font-family:var(--script);font-weight:400;font-size:38px;line-height:1;margin:34px 0 2px}
+.count{font-size:11px;color:var(--soft);margin-bottom:10px;font-variant-numeric:tabular-nums}
 .ings{list-style:none;margin:0;padding:0;width:100%;text-align:left}
-.ing{display:flex;align-items:center;gap:11px;padding:5px 0;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
+.ing{display:flex;align-items:flex-start;gap:12px;padding:6px 0;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
 .ing input{position:absolute;opacity:0;pointer-events:none}
-.cb{width:18px;height:18px;border:1px solid var(--red);border-radius:50%;flex:none;display:grid;place-items:center;transition:background .15s}
+.cb{width:15px;height:15px;border:1px solid var(--red);flex:none;display:grid;place-items:center;margin-top:3px;transition:background .15s}
 .cb svg{opacity:0}
 .ing .tx{flex:1;min-width:0}
-.ing b{font-weight:500;color:var(--red)}
+.ing b{font-weight:700}
 .ing.on .tx{color:var(--soft);text-decoration:line-through}
-.ing.on b{color:var(--soft)}
 .ing.on .cb{background:var(--red)}
 .ing.on .cb svg{opacity:1}
-.mini{margin-top:6px;font-size:11.5px;color:var(--soft);text-decoration:underline;text-underline-offset:3px}
-.steps{list-style:none;margin:6px 0 0;padding:0;width:100%;text-align:left;display:flex;flex-direction:column;gap:8px}
-.steps li{display:flex;gap:12px;align-items:flex-start}
-.steps i{font-family:var(--display);font-style:normal;font-size:26px;color:var(--red);width:18px;flex:none;line-height:.9;text-align:center}
+.mini{margin-top:8px;font-size:11.5px;color:var(--soft)}
+.steps{list-style:none;margin:6px 0 0;padding:0;width:100%;text-align:left;display:flex;flex-direction:column;gap:12px}
+.steps li{display:flex;gap:14px;align-items:baseline}
+.steps i{font-family:var(--display);font-style:normal;font-size:20px;width:18px;flex:none;text-align:center;line-height:1}
 .steps span{min-width:0}
-.tip{margin-top:20px;width:100%;color:var(--soft);font-style:italic}
-.danger{margin-top:28px;display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap}
-.btn{border:1px solid var(--red);color:var(--red);border-radius:99px;padding:9px 20px;font-weight:500;letter-spacing:.14em;font-size:10px;text-transform:uppercase;background:var(--paper)}
-.btn.fill{background:var(--red);color:var(--paper)}
-.note{color:var(--soft);font-size:13px;width:100%}
+.tip{margin-top:24px;width:100%;color:var(--soft);font-style:italic;font-size:12.5px}
+.danger{margin-top:40px;display:flex;gap:16px;align-items:center;justify-content:center;flex-wrap:wrap;font-size:12px;color:var(--soft)}
+.note{width:100%}
+.btn{border:1px solid var(--red);border-radius:50%;padding:12px 26px;font-size:12.5px;color:var(--red)}
+.btn.fill{background:var(--red);color:var(--bg)}
+
+/* login */
+.auth{width:100%;max-width:320px;display:flex;flex-direction:column;gap:14px;margin-top:22px}
+.msg{color:var(--soft);font-size:12px;margin:0}
+.msg.err{color:var(--red)}
 
 /* edição */
-.topbar{display:flex;justify-content:space-between;align-items:center;width:100%}
-.topbar .back{align-self:auto}
-.edit-link{font-weight:600;letter-spacing:.18em;font-size:10.5px;color:var(--red);padding:4px 0;text-transform:uppercase}
-.fld{font:inherit;color:var(--ink);background:transparent;border:0;border-bottom:1px solid var(--line);padding:8px 2px;border-radius:0;width:100%;min-width:0}
+.fld{font:inherit;font-size:16px;color:var(--red);background:transparent;border:0;border-bottom:1px solid var(--line);padding:8px 2px;border-radius:0;width:100%;min-width:0}
 .fld:focus{border-bottom-color:var(--red);outline:none}
 .fld::placeholder{color:var(--soft)}
-.fld.title{font-family:var(--display);font-size:24px;color:var(--red);text-align:center;border-bottom-color:var(--red)}
-.photo-edit{display:flex;flex-direction:column;align-items:center;gap:8px;margin:16px 0 8px}
-.photo-edit .thumb{width:96px;height:96px}
-.photo-btns{display:flex;gap:16px}
-.linkbtn{font-size:12px;color:var(--red);text-decoration:underline;text-underline-offset:3px}
-.linkbtn.muted{color:var(--soft)}
+.fld.title{font-family:var(--display);font-size:22px;text-align:center;border-bottom-color:var(--red)}
+.label{font-size:11px;color:var(--soft);align-self:flex-start;margin-top:18px}
+.photo-edit{display:flex;flex-direction:column;align-items:center;gap:12px;margin:4px 0 18px}
+.photo-edit .arch{width:110px}
+.ph-empty{width:110px;aspect-ratio:5/6;border-radius:999px 999px 6px 6px;border:1px dashed var(--soft);margin-top:22px}
+.photo-btns{display:flex;gap:16px;font-size:12px}
 .erow{display:flex;gap:8px;align-items:center;width:100%}
-.erow .q{flex:0 0 40%}
-.erow .fld{font-size:16px}
+.erow .q{flex:0 0 38%}
 .erow .n{flex:1}
 .rm{width:30px;height:30px;flex:none;color:var(--soft);font-size:18px;line-height:1;display:grid;place-items:center}
-.rm:hover{color:var(--err)}
-.add{margin-top:10px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;color:var(--red)}
-.actions{margin-top:30px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.add{margin-top:12px;font-size:12.5px}
+.actions{margin-top:36px;display:flex;gap:14px;justify-content:center;align-items:center;flex-wrap:wrap}
 .srow{align-items:flex-start}
-.snum{font-family:var(--display);font-style:normal;font-size:24px;color:var(--red);width:18px;flex:none;line-height:1;padding-top:8px;text-align:center}
-textarea.fld{resize:none;overflow:hidden;line-height:1.35;font-size:16px}
+.snum{font-family:var(--display);font-style:normal;font-size:20px;width:18px;flex:none;line-height:1;padding-top:10px;text-align:center}
+textarea.fld{resize:none;overflow:hidden;line-height:1.4}
 #fileIn{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><g id="ovshape"><path d="M306.0 190.0L307.8 191.2L309.1 192.5L310.3 193.8L311.3 195.1L312.2 196.4L313.1 197.7L313.8 199.0L314.4 200.3L315.0 201.6L315.4 203.0L315.8 204.3L316.0 205.6L316.2 206.9L316.2 208.2L316.1 209.5L316.0 210.8L315.7 212.1L315.3 213.4L314.9 214.6L314.3 215.9L313.6 217.1L312.9 218.3L312.0 219.4L311.0 220.6L310.0 221.7L308.9 222.7L307.6 223.8L306.3 224.8L304.8 225.8L302.8 226.6L304.4 228.2L305.4 229.7L306.3 231.2L307.1 232.6L307.8 234.1L308.4 235.6L308.9 237.0L309.3 238.4L309.6 239.8L309.8 241.2L309.9 242.6L309.9 243.9L309.8 245.2L309.6 246.5L309.3 247.8L308.9 249.0L308.4 250.2L307.9 251.4L307.2 252.5L306.4 253.5L305.5 254.6L304.6 255.6L303.6 256.5L302.4 257.4L301.2 258.3L299.9 259.1L298.6 259.9L297.1 260.6L295.4 261.2L293.4 261.6L294.6 263.5L295.4 265.1L296.0 266.8L296.5 268.4L296.9 269.9L297.2 271.5L297.4 273.0L297.6 274.4L297.6 275.8L297.6 277.2L297.4 278.6L297.2 279.9L296.9 281.1L296.5 282.3L296.0 283.5L295.4 284.6L294.7 285.7L293.9 286.6L293.1 287.6L292.1 288.5L291.1 289.3L290.0 290.0L288.8 290.7L287.6 291.4L286.3 292.0L284.9 292.5L283.4 292.9L281.9 293.3L280.2 293.5L278.1 293.5L279.0 295.5L279.4 297.3L279.7 299.0L279.9 300.7L280.0 302.2L280.1 303.8L280.0 305.3L279.9 306.7L279.6 308.1L279.4 309.4L279.0 310.7L278.5 311.9L278.0 313.0L277.4 314.1L276.7 315.1L275.9 316.1L275.1 316.9L274.1 317.7L273.1 318.4L272.1 319.1L270.9 319.6L269.8 320.1L268.5 320.5L267.2 320.9L265.8 321.1L264.4 321.3L262.9 321.4L261.3 321.4L259.7 321.3L257.7 320.8L258.1 323.0L258.2 324.8L258.2 326.5L258.1 328.1L257.9 329.7L257.6 331.2L257.3 332.6L256.9 333.9L256.5 335.2L255.9 336.4L255.3 337.5L254.7 338.6L253.9 339.6L253.1 340.5L252.3 341.3L251.4 342.0L250.4 342.6L249.4 343.2L248.3 343.7L247.1 344.0L245.9 344.3L244.7 344.5L243.4 344.6L242.1 344.7L240.7 344.6L239.3 344.5L237.9 344.2L236.4 343.9L234.8 343.4L233.0 342.4L233.0 344.6L232.8 346.4L232.4 348.0L232.0 349.5L231.5 351.0L231.0 352.3L230.4 353.6L229.7 354.8L229.0 356.0L228.3 357.0L227.5 358.0L226.7 358.8L225.8 359.6L224.8 360.3L223.9 360.8L222.8 361.3L221.8 361.7L220.7 362.0L219.5 362.2L218.4 362.3L217.2 362.3L215.9 362.2L214.7 362.0L213.4 361.7L212.1 361.3L210.8 360.8L209.4 360.3L208.1 359.6L206.7 358.7L205.1 357.4L204.7 359.5L204.1 361.1L203.4 362.6L202.7 364.0L202.0 365.3L201.2 366.4L200.4 367.5L199.5 368.5L198.6 369.5L197.7 370.3L196.7 371.0L195.8 371.6L194.7 372.2L193.7 372.6L192.6 372.9L191.6 373.1L190.5 373.2L189.3 373.3L188.2 373.2L187.1 373.0L185.9 372.7L184.7 372.3L183.6 371.8L182.4 371.2L181.2 370.5L180.0 369.8L178.8 368.9L177.7 367.9L176.5 366.7L175.3 365.0L174.4 367.0L173.5 368.4L172.6 369.7L171.6 370.8L170.6 371.9L169.6 372.8L168.6 373.7L167.6 374.5L166.5 375.1L165.4 375.7L164.4 376.2L163.3 376.5L162.2 376.8L161.1 376.9L160.0 377.0L158.9 376.9L157.8 376.8L156.7 376.5L155.6 376.2L154.6 375.7L153.5 375.1L152.4 374.5L151.4 373.7L150.4 372.8L149.4 371.9L148.4 370.8L147.4 369.7L146.5 368.4L145.6 367.0L144.7 365.0L143.5 366.7L142.3 367.9L141.2 368.9L140.0 369.8L138.8 370.5L137.6 371.2L136.4 371.8L135.3 372.3L134.1 372.7L132.9 373.0L131.8 373.2L130.7 373.3L129.5 373.2L128.4 373.1L127.4 372.9L126.3 372.6L125.3 372.2L124.2 371.6L123.3 371.0L122.3 370.3L121.4 369.5L120.5 368.5L119.6 367.5L118.8 366.4L118.0 365.3L117.3 364.0L116.6 362.6L115.9 361.1L115.3 359.5L114.9 357.4L113.3 358.7L111.9 359.6L110.6 360.3L109.2 360.8L107.9 361.3L106.6 361.7L105.3 362.0L104.1 362.2L102.8 362.3L101.6 362.3L100.5 362.2L99.3 362.0L98.2 361.7L97.2 361.3L96.1 360.8L95.2 360.3L94.2 359.6L93.3 358.8L92.5 358.0L91.7 357.0L91.0 356.0L90.3 354.8L89.6 353.6L89.0 352.3L88.5 351.0L88.0 349.5L87.6 348.0L87.2 346.4L87.0 344.6L87.0 342.4L85.2 343.4L83.6 343.9L82.1 344.2L80.7 344.5L79.3 344.6L77.9 344.7L76.6 344.6L75.3 344.5L74.1 344.3L72.9 344.0L71.7 343.7L70.6 343.2L69.6 342.6L68.6 342.0L67.7 341.3L66.9 340.5L66.1 339.6L65.3 338.6L64.7 337.5L64.1 336.4L63.5 335.2L63.1 333.9L62.7 332.6L62.4 331.2L62.1 329.7L61.9 328.1L61.8 326.5L61.8 324.8L61.9 323.0L62.3 320.8L60.3 321.3L58.7 321.4L57.1 321.4L55.6 321.3L54.2 321.1L52.8 320.9L51.5 320.5L50.2 320.1L49.1 319.6L47.9 319.1L46.9 318.4L45.9 317.7L44.9 316.9L44.1 316.1L43.3 315.1L42.6 314.1L42.0 313.0L41.5 311.9L41.0 310.7L40.6 309.4L40.4 308.1L40.1 306.7L40.0 305.3L39.9 303.8L40.0 302.2L40.1 300.7L40.3 299.0L40.6 297.3L41.0 295.5L41.9 293.5L39.8 293.5L38.1 293.3L36.6 292.9L35.1 292.5L33.7 292.0L32.4 291.4L31.2 290.7L30.0 290.0L28.9 289.3L27.9 288.5L26.9 287.6L26.1 286.6L25.3 285.7L24.6 284.6L24.0 283.5L23.5 282.3L23.1 281.1L22.8 279.9L22.6 278.6L22.4 277.2L22.4 275.8L22.4 274.4L22.6 273.0L22.8 271.5L23.1 269.9L23.5 268.4L24.0 266.8L24.6 265.1L25.4 263.5L26.6 261.6L24.6 261.2L22.9 260.6L21.4 259.9L20.1 259.1L18.8 258.3L17.6 257.4L16.4 256.5L15.4 255.6L14.5 254.6L13.6 253.5L12.8 252.5L12.1 251.4L11.6 250.2L11.1 249.0L10.7 247.8L10.4 246.5L10.2 245.2L10.1 243.9L10.1 242.6L10.2 241.2L10.4 239.8L10.7 238.4L11.1 237.0L11.6 235.6L12.2 234.1L12.9 232.6L13.7 231.2L14.6 229.7L15.6 228.2L17.2 226.6L15.2 225.8L13.7 224.8L12.4 223.8L11.1 222.7L10.0 221.7L9.0 220.6L8.0 219.4L7.1 218.3L6.4 217.1L5.7 215.9L5.1 214.6L4.7 213.4L4.3 212.1L4.0 210.8L3.9 209.5L3.8 208.2L3.8 206.9L4.0 205.6L4.2 204.3L4.6 203.0L5.0 201.6L5.6 200.3L6.2 199.0L6.9 197.7L7.8 196.4L8.7 195.1L9.7 193.8L10.9 192.5L12.2 191.2L14.0 190.0L12.2 188.8L10.9 187.5L9.7 186.2L8.7 184.9L7.8 183.6L6.9 182.3L6.2 181.0L5.6 179.7L5.0 178.4L4.6 177.0L4.2 175.7L4.0 174.4L3.8 173.1L3.8 171.8L3.9 170.5L4.0 169.2L4.3 167.9L4.7 166.6L5.1 165.4L5.7 164.1L6.4 162.9L7.1 161.7L8.0 160.6L9.0 159.4L10.0 158.3L11.1 157.3L12.4 156.2L13.7 155.2L15.2 154.2L17.2 153.4L15.6 151.8L14.6 150.3L13.7 148.8L12.9 147.4L12.2 145.9L11.6 144.4L11.1 143.0L10.7 141.6L10.4 140.2L10.2 138.8L10.1 137.4L10.1 136.1L10.2 134.8L10.4 133.5L10.7 132.2L11.1 131.0L11.6 129.8L12.1 128.6L12.8 127.5L13.6 126.5L14.5 125.4L15.4 124.4L16.4 123.5L17.6 122.6L18.8 121.7L20.1 120.9L21.4 120.1L22.9 119.4L24.6 118.8L26.6 118.4L25.4 116.5L24.6 114.9L24.0 113.2L23.5 111.6L23.1 110.1L22.8 108.5L22.6 107.0L22.4 105.6L22.4 104.2L22.4 102.8L22.6 101.4L22.8 100.1L23.1 98.9L23.5 97.7L24.0 96.5L24.6 95.4L25.3 94.3L26.1 93.4L26.9 92.4L27.9 91.5L28.9 90.7L30.0 90.0L31.2 89.3L32.4 88.6L33.7 88.0L35.1 87.5L36.6 87.1L38.1 86.7L39.8 86.5L41.9 86.5L41.0 84.5L40.6 82.7L40.3 81.0L40.1 79.3L40.0 77.8L39.9 76.2L40.0 74.7L40.1 73.3L40.4 71.9L40.6 70.6L41.0 69.3L41.5 68.1L42.0 67.0L42.6 65.9L43.3 64.9L44.1 63.9L44.9 63.1L45.9 62.3L46.9 61.6L47.9 60.9L49.1 60.4L50.2 59.9L51.5 59.5L52.8 59.1L54.2 58.9L55.6 58.7L57.1 58.6L58.7 58.6L60.3 58.7L62.3 59.2L61.9 57.0L61.8 55.2L61.8 53.5L61.9 51.9L62.1 50.3L62.4 48.8L62.7 47.4L63.1 46.1L63.5 44.8L64.1 43.6L64.7 42.5L65.3 41.4L66.1 40.4L66.9 39.5L67.7 38.7L68.6 38.0L69.6 37.4L70.6 36.8L71.7 36.3L72.9 36.0L74.1 35.7L75.3 35.5L76.6 35.4L77.9 35.3L79.3 35.4L80.7 35.5L82.1 35.8L83.6 36.1L85.2 36.6L87.0 37.6L87.0 35.4L87.2 33.6L87.6 32.0L88.0 30.5L88.5 29.0L89.0 27.7L89.6 26.4L90.3 25.2L91.0 24.0L91.7 23.0L92.5 22.0L93.3 21.2L94.2 20.4L95.2 19.7L96.1 19.2L97.2 18.7L98.2 18.3L99.3 18.0L100.5 17.8L101.6 17.7L102.8 17.7L104.1 17.8L105.3 18.0L106.6 18.3L107.9 18.7L109.2 19.2L110.6 19.7L111.9 20.4L113.3 21.3L114.9 22.6L115.3 20.5L115.9 18.9L116.6 17.4L117.3 16.0L118.0 14.7L118.8 13.6L119.6 12.5L120.5 11.5L121.4 10.5L122.3 9.7L123.3 9.0L124.2 8.4L125.3 7.8L126.3 7.4L127.4 7.1L128.4 6.9L129.5 6.8L130.7 6.7L131.8 6.8L132.9 7.0L134.1 7.3L135.3 7.7L136.4 8.2L137.6 8.8L138.8 9.5L140.0 10.2L141.2 11.1L142.3 12.1L143.5 13.3L144.7 15.0L145.6 13.0L146.5 11.6L147.4 10.3L148.4 9.2L149.4 8.1L150.4 7.2L151.4 6.3L152.4 5.5L153.5 4.9L154.6 4.3L155.6 3.8L156.7 3.5L157.8 3.2L158.9 3.1L160.0 3.0L161.1 3.1L162.2 3.2L163.3 3.5L164.4 3.8L165.4 4.3L166.5 4.9L167.6 5.5L168.6 6.3L169.6 7.2L170.6 8.1L171.6 9.2L172.6 10.3L173.5 11.6L174.4 13.0L175.3 15.0L176.5 13.3L177.7 12.1L178.8 11.1L180.0 10.2L181.2 9.5L182.4 8.8L183.6 8.2L184.7 7.7L185.9 7.3L187.1 7.0L188.2 6.8L189.3 6.7L190.5 6.8L191.6 6.9L192.6 7.1L193.7 7.4L194.7 7.8L195.8 8.4L196.7 9.0L197.7 9.7L198.6 10.5L199.5 11.5L200.4 12.5L201.2 13.6L202.0 14.7L202.7 16.0L203.4 17.4L204.1 18.9L204.7 20.5L205.1 22.6L206.7 21.3L208.1 20.4L209.4 19.7L210.8 19.2L212.1 18.7L213.4 18.3L214.7 18.0L215.9 17.8L217.2 17.7L218.4 17.7L219.5 17.8L220.7 18.0L221.8 18.3L222.8 18.7L223.9 19.2L224.8 19.7L225.8 20.4L226.7 21.2L227.5 22.0L228.3 23.0L229.0 24.0L229.7 25.2L230.4 26.4L231.0 27.7L231.5 29.0L232.0 30.5L232.4 32.0L232.8 33.6L233.0 35.4L233.0 37.6L234.8 36.6L236.4 36.1L237.9 35.8L239.3 35.5L240.7 35.4L242.1 35.3L243.4 35.4L244.7 35.5L245.9 35.7L247.1 36.0L248.3 36.3L249.4 36.8L250.4 37.4L251.4 38.0L252.3 38.7L253.1 39.5L253.9 40.4L254.7 41.4L255.3 42.5L255.9 43.6L256.5 44.8L256.9 46.1L257.3 47.4L257.6 48.8L257.9 50.3L258.1 51.9L258.2 53.5L258.2 55.2L258.1 57.0L257.7 59.2L259.7 58.7L261.3 58.6L262.9 58.6L264.4 58.7L265.8 58.9L267.2 59.1L268.5 59.5L269.8 59.9L270.9 60.4L272.1 60.9L273.1 61.6L274.1 62.3L275.1 63.1L275.9 63.9L276.7 64.9L277.4 65.9L278.0 67.0L278.5 68.1L279.0 69.3L279.4 70.6L279.6 71.9L279.9 73.3L280.0 74.7L280.1 76.2L280.0 77.8L279.9 79.3L279.7 81.0L279.4 82.7L279.0 84.5L278.1 86.5L280.2 86.5L281.9 86.7L283.4 87.1L284.9 87.5L286.3 88.0L287.6 88.6L288.8 89.3L290.0 90.0L291.1 90.7L292.1 91.5L293.1 92.4L293.9 93.4L294.7 94.3L295.4 95.4L296.0 96.5L296.5 97.7L296.9 98.9L297.2 100.1L297.4 101.4L297.6 102.8L297.6 104.2L297.6 105.6L297.4 107.0L297.2 108.5L296.9 110.1L296.5 111.6L296.0 113.2L295.4 114.9L294.6 116.5L293.4 118.4L295.4 118.8L297.1 119.4L298.6 120.1L299.9 120.9L301.2 121.7L302.4 122.6L303.6 123.5L304.6 124.4L305.5 125.4L306.4 126.5L307.2 127.5L307.9 128.6L308.4 129.8L308.9 131.0L309.3 132.2L309.6 133.5L309.8 134.8L309.9 136.1L309.9 137.4L309.8 138.8L309.6 140.2L309.3 141.6L308.9 143.0L308.4 144.4L307.8 145.9L307.1 147.4L306.3 148.8L305.4 150.3L304.4 151.8L302.8 153.4L304.8 154.2L306.3 155.2L307.6 156.2L308.9 157.3L310.0 158.3L311.0 159.4L312.0 160.6L312.9 161.7L313.6 162.9L314.3 164.1L314.9 165.4L315.3 166.6L315.7 167.9L316.0 169.2L316.1 170.5L316.2 171.8L316.2 173.1L316.0 174.4L315.8 175.7L315.4 177.0L315.0 178.4L314.4 179.7L313.8 181.0L313.1 182.3L312.2 183.6L311.3 184.9L310.3 186.2L309.1 187.5L307.8 188.8L306.0 190.0Z"/><ellipse cx="160" cy="190" rx="130" ry="160"/><ellipse cx="308.2" cy="208.7" rx="3.6" ry="1.6" transform="rotate(7 308.2 208.7)"/><ellipse cx="301.7" cy="245.3" rx="3.6" ry="1.6" transform="rotate(21 301.7 245.3)"/><ellipse cx="289.0" cy="279.5" rx="3.6" ry="1.6" transform="rotate(35 289.0 279.5)"/><ellipse cx="270.7" cy="309.8" rx="3.6" ry="1.6" transform="rotate(47 270.7 309.8)"/><ellipse cx="247.6" cy="334.8" rx="3.6" ry="1.6" transform="rotate(59 247.6 334.8)"/><ellipse cx="220.6" cy="353.5" rx="3.6" ry="1.6" transform="rotate(70 220.6 353.5)"/><ellipse cx="191.0" cy="365.1" rx="3.6" ry="1.6" transform="rotate(80 191.0 365.1)"/><ellipse cx="160.0" cy="369.0" rx="3.6" ry="1.6" transform="rotate(90 160.0 369.0)"/><ellipse cx="129.0" cy="365.1" rx="3.6" ry="1.6" transform="rotate(100 129.0 365.1)"/><ellipse cx="99.4" cy="353.5" rx="3.6" ry="1.6" transform="rotate(110 99.4 353.5)"/><ellipse cx="72.4" cy="334.8" rx="3.6" ry="1.6" transform="rotate(121 72.4 334.8)"/><ellipse cx="49.3" cy="309.8" rx="3.6" ry="1.6" transform="rotate(133 49.3 309.8)"/><ellipse cx="31.0" cy="279.5" rx="3.6" ry="1.6" transform="rotate(145 31.0 279.5)"/><ellipse cx="18.3" cy="245.3" rx="3.6" ry="1.6" transform="rotate(159 18.3 245.3)"/><ellipse cx="11.8" cy="208.7" rx="3.6" ry="1.6" transform="rotate(173 11.8 208.7)"/><ellipse cx="11.8" cy="171.3" rx="3.6" ry="1.6" transform="rotate(-173 11.8 171.3)"/><ellipse cx="18.3" cy="134.7" rx="3.6" ry="1.6" transform="rotate(-159 18.3 134.7)"/><ellipse cx="31.0" cy="100.5" rx="3.6" ry="1.6" transform="rotate(-145 31.0 100.5)"/><ellipse cx="49.3" cy="70.2" rx="3.6" ry="1.6" transform="rotate(-133 49.3 70.2)"/><ellipse cx="72.4" cy="45.2" rx="3.6" ry="1.6" transform="rotate(-121 72.4 45.2)"/><ellipse cx="99.4" cy="26.5" rx="3.6" ry="1.6" transform="rotate(-110 99.4 26.5)"/><ellipse cx="129.0" cy="14.9" rx="3.6" ry="1.6" transform="rotate(-100 129.0 14.9)"/><ellipse cx="160.0" cy="11.0" rx="3.6" ry="1.6" transform="rotate(-90 160.0 11.0)"/><ellipse cx="191.0" cy="14.9" rx="3.6" ry="1.6" transform="rotate(-80 191.0 14.9)"/><ellipse cx="220.6" cy="26.5" rx="3.6" ry="1.6" transform="rotate(-70 220.6 26.5)"/><ellipse cx="247.6" cy="45.2" rx="3.6" ry="1.6" transform="rotate(-59 247.6 45.2)"/><ellipse cx="270.7" cy="70.2" rx="3.6" ry="1.6" transform="rotate(-47 270.7 70.2)"/><ellipse cx="289.0" cy="100.5" rx="3.6" ry="1.6" transform="rotate(-35 289.0 100.5)"/><ellipse cx="301.7" cy="134.7" rx="3.6" ry="1.6" transform="rotate(-21 301.7 134.7)"/><ellipse cx="308.2" cy="171.3" rx="3.6" ry="1.6" transform="rotate(-7 308.2 171.3)"/></g><g id="ov2" class="e2"><use href="#ovshape"/></g><g id="ov1" class="e1"><use href="#ovshape"/></g></defs></svg>
 <div class="panel">
-  <div class="deco" id="deco" aria-hidden="true"></div>
-
   <div class="in centered" id="auth" hidden>
-    <h1><span>Caderno de</span><span>Receitas</span></h1>
-    <p class="msg">Entre com o mesmo e-mail e senha do Casa Nova.</p>
+    <div class="oval"><svg viewBox="0 0 320 380" aria-hidden="true"><use href="#ov2"/><use href="#ov1"/></svg>
+      <div class="kicker">Caderno de</div><div class="script">receitas</div><div class="spark">✦</div>
+    </div>
     <form class="auth" id="authForm" autocomplete="on">
-      <input id="authEmail" type="email" placeholder="Seu e-mail" autocomplete="email" required aria-label="E-mail">
-      <input id="authPass" type="password" placeholder="Senha" autocomplete="current-password" required aria-label="Senha">
-      <button class="btn fill" type="submit" style="margin-top:10px;align-self:center">Entrar</button>
+      <p class="msg">Entre com o mesmo e-mail e senha do Casa Nova.</p>
+      <input class="fld" id="authEmail" type="email" placeholder="seu e-mail" autocomplete="email" required aria-label="E-mail">
+      <input class="fld" id="authPass" type="password" placeholder="senha" autocomplete="current-password" required aria-label="Senha">
+      <button class="btn fill" type="submit" style="margin-top:12px;align-self:center">entrar</button>
       <p class="msg" id="authMsg" role="status"></p>
     </form>
   </div>
-
   <div class="in" id="view" hidden></div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
+
 const SUPABASE_URL="https://ufbmhikchqhstcbhioib.supabase.co";
 const SUPABASE_KEY="sb_publishable_QGj4aoHhWZXbCUBep2tylA_a8NckDy7";
 const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:true,autoRefreshToken:true}});
@@ -154,44 +151,27 @@ const $=id=>document.getElementById(id);
 const $view=$("view");
 let session=null, channel=null, recipes=[], current=null, confirmDel=false, loaded=false;
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const tick='<svg width="11" height="11" viewBox="0 0 10 10"><path d="M2 5.2l2 2 4-4.4" stroke="#FBFAF6" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-const FL=n=>`flores/${n}.png`;
-const DECO={
-  list:[["orquidea","left:-26px;top:calc(env(safe-area-inset-top,0px) - 18px);width:118px;transform:rotate(-12deg)"],
-        ["buganvilia","right:-30px;top:calc(env(safe-area-inset-top,0px) + 6px);width:120px;transform:rotate(18deg) scaleX(-1)"],
-        ["hibisco-laranja","left:-38px;bottom:calc(env(safe-area-inset-bottom,0px) - 30px);width:140px"],
-        ["flor-branca","left:84px;bottom:calc(env(safe-area-inset-bottom,0px) - 26px);width:62px"],
-        ["plumeria-amarela","right:-28px;bottom:calc(env(safe-area-inset-bottom,0px) - 24px);width:112px;transform:rotate(14deg)"],
-        ["plumeria-rosa","right:78px;bottom:calc(env(safe-area-inset-bottom,0px) - 14px);width:70px;transform:rotate(-8deg)"]],
-  page:[["plumeria-amarela","left:-28px;top:calc(env(safe-area-inset-top,0px) - 26px);width:96px"],
-        ["hibisco-vermelho","right:-26px;top:calc(env(safe-area-inset-top,0px) - 22px);width:92px;transform:rotate(16deg)"],
-        ["hibisco-laranja","left:-36px;bottom:calc(env(safe-area-inset-bottom,0px) - 30px);width:124px"],
-        ["orquidea","right:-24px;bottom:calc(env(safe-area-inset-bottom,0px) - 20px);width:100px;transform:rotate(-10deg)"]]
-};
-let decoNow="";
-function setDeco(kind){ if(decoNow===kind)return; decoNow=kind;
-  $("deco").innerHTML=DECO[kind].map(([n,st])=>`<img src="${FL(n)}" alt="" style="${st}">`).join(""); }
-const thumb=(r,cls="")=>`<span class="thumb ${cls}">${r.foto?`<img src="${esc(r.foto)}" alt="">`:`<img class="fl" src="${FL("flor-branca")}" alt="">`}</span>`;
+const tick='<svg width="11" height="11" viewBox="0 0 10 10"><path d="M2 5.2l2 2 4-4.4" stroke="#E9E2DA" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const OVAL='<svg viewBox="0 0 320 380" aria-hidden="true"><use href="#ov2"/><use href="#ov1"/></svg>';
+const arch=src=>`<span class="arch"><img src="${esc(src)}" alt=""></span>`;
 const safeUrl=u=>/^https?:\/\//i.test(u||"")?u:"";
 
 try{ const c=localStorage.getItem("receitas-cache"); if(c) recipes=JSON.parse(c)||[]; }catch(e){}
 
 function renderList(){
-  $view.classList.add("centered");$view.classList.remove("page");setDeco("list");
-  let html=`<h1><span>Caderno de</span><span>Receitas</span></h1>
-    <div class="rule"><button class="newbtn" id="btnNew">+ nova receita</button></div>`;
+  $view.classList.add("centered");
+  let html=`<div class="oval">${OVAL}
+      <div class="kicker">Caderno de</div><div class="script">receitas</div><div class="spark">✦</div>
+      <button class="newbtn u" id="btnNew">+ nova receita</button>
+    </div>`;
   if(recipes.length){
     html+=`<div class="list">${recipes.map(r=>{
       const n=(r.ingredientes||[]).length;
-      const status=n?`${n} ingrediente${n>1?"s":""}`:"";
-      return `<button class="item" data-id="${esc(r.id)}">${thumb(r)}
-        <span class="t"><span class="nm">${esc(r.titulo)}</span>
-        <span class="sub">${esc(status)}</span></span>
-        <span class="arrow" aria-hidden="true">›</span></button>`}).join("")}</div>`;
+      return `<button class="item" data-id="${esc(r.id)}"><span class="nm">${esc(r.titulo)}</span>${n?`<span class="sub">${n} ingrediente${n>1?"s":""}</span>`:""}</button>`}).join("")}</div>`;
   } else {
     html+=`<div class="empty">${loaded?"Nenhuma receita ainda.":"Abrindo o caderno…"}</div>`;
   }
-  html+=`<div class="sig">bom apetite!</div><button class="out" id="btnLogout">sair</button>`;
+  html+=`<button class="out u" id="btnLogout">sair</button>`;
   $view.innerHTML=html;
   $view.querySelectorAll(".item").forEach(b=>b.onclick=()=>open(b.dataset.id));
   $("btnLogout").onclick=async()=>{await sb.auth.signOut();setSession(null)};
@@ -199,32 +179,38 @@ function renderList(){
 }
 
 function renderRecipe(){
-  $view.classList.remove("centered");$view.classList.add("page");setDeco("page");
+  $view.classList.remove("centered");
   const r=recipes.find(x=>x.id===current);
   if(!r){current=null;return renderList();}
   const ings=r.ingredientes||[], done=ings.filter(i=>i.checked).length;
-  const meta=[r.tempo,r.porcoes].filter(Boolean).map(esc).join(" · ");
   const url=safeUrl(r.video_url);
   $view.innerHTML=`
-    <div class="topbar"><button class="back" id="back">‹ VOLTAR</button><button class="edit-link" id="edit">EDITAR</button></div>
-    ${r.foto?thumb(r,"hero-photo"):""}
+    <div class="topbar"><button class="u" id="back">← voltar</button><button class="u" id="edit">editar</button></div>
+    ${r.foto?arch(r.foto):""}
     <h2>${esc(r.titulo)}</h2>
-    ${meta?`<div class="rule"><span>${meta}</span></div>`:""}${url?`<a class="src" href="${esc(url)}" target="_blank" rel="noopener">▶ ver vídeo original</a>`:""}
-    <h4>Ingredientes</h4>
+    <div class="video">${url
+      ?`<a class="u" href="${esc(url)}" target="_blank" rel="noopener">▶ ver vídeo da receita</a>`
+      :`<form class="vlink" id="vform"><input id="vIn" type="url" inputmode="url" placeholder="cole aqui o link do vídeo" aria-label="Link do vídeo"><button class="u" type="submit">salvar</button></form>`}</div>
+    <h4>ingredientes</h4>
     ${ings.length?`<div class="count">${done} de ${ings.length} comprados</div>`:""}
     <ul class="ings">${ings.map((i,k)=>`<li><label class="ing ${i.checked?"on":""}">
       <input type="checkbox" id="ing-${k}" data-n="${k}" ${i.checked?"checked":""}>
       <span class="cb">${tick}</span>
       <span class="tx">${i.qty?`<b>${esc(i.qty)}</b> `:""}${esc(i.name)}</span></label></li>`).join("")}</ul>
-    ${done?'<button class="mini" id="reset">desmarcar tudo</button>':""}
-    <h4>Modo de preparo</h4>
+    ${done?'<button class="mini u" id="reset">desmarcar tudo</button>':""}
+    <h4>modo de preparo</h4>
     <ol class="steps">${(r.passos||[]).map((s,k)=>`<li><i>${k+1}</i><span>${esc(s)}</span></li>`).join("")}</ol>
     ${r.dica?`<div class="tip">${esc(r.dica)}</div>`:""}
     <div class="danger">${confirmDel
-      ?`<span class="note">Apagar essa receita pra sempre?</span><button class="btn" id="no">cancelar</button><button class="btn fill" id="yes">apagar</button>`
-      :`<button class="btn" id="del">apagar receita</button>`}</div>`;
+      ?`<span class="note">Apagar essa receita pra sempre?</span><button class="u" id="no">cancelar</button><button class="u" id="yes" style="color:var(--red)">apagar</button>`
+      :`<button class="u" id="del">apagar receita</button>`}</div>`;
   $("back").onclick=()=>{current=null;confirmDel=false;renderList();scrollTo(0,0)};
   $("edit").onclick=()=>startEdit(r);
+  if($("vform"))$("vform").onsubmit=async e=>{e.preventDefault();
+    const v=$("vIn").value.trim(); if(!safeUrl(v)){$("vIn").value="";$("vIn").placeholder="o link precisa começar com https://";return}
+    r.video_url=v; cache(); renderRecipe();
+    await saving; await sb.from("receitas").update({video_url:v,updated_at:new Date().toISOString()}).eq("id",r.id);
+  };
   $view.querySelectorAll(".ing input").forEach(cb=>cb.onchange=()=>saveIngs(r,ings.map((i,k)=>k===+cb.dataset.n?{...i,checked:cb.checked}:{...i})));
   if($("reset"))$("reset").onclick=()=>saveIngs(r,ings.map(i=>({...i,checked:false})));
   if($("del"))$("del").onclick=()=>{confirmDel=true;renderRecipe()};
@@ -239,41 +225,43 @@ function renderRecipe(){
 /* ---------- edição (e receita nova) ---------- */
 let draft=null;
 function startEdit(r){
-  draft=r?{id:r.id,titulo:r.titulo||"",foto:r.foto||"",ingredientes:(r.ingredientes||[]).map(i=>({...i})),passos:[...(r.passos||[])]}
-         :{id:null,titulo:"",foto:"",ingredientes:[],passos:[]};
+  draft=r?{id:r.id,titulo:r.titulo||"",foto:r.foto||"",video_url:r.video_url||"",ingredientes:(r.ingredientes||[]).map(i=>({...i})),passos:[...(r.passos||[])]}
+         :{id:null,titulo:"",foto:"",video_url:"",ingredientes:[],passos:[]};
   if(!draft.ingredientes.length)draft.ingredientes.push({qty:"",name:"",checked:false});
   if(!draft.passos.length)draft.passos.push("");
   renderEdit();scrollTo(0,0);
 }
 function grow(t){t.style.height="auto";t.style.height=t.scrollHeight+"px"}
 function renderEdit(msg){
-  $view.classList.remove("centered");$view.classList.add("page");setDeco("page");
+  $view.classList.remove("centered");
   const d=draft;
   $view.innerHTML=`
-    <div class="topbar"><button class="back" id="cancelTop">‹ CANCELAR</button><span></span></div>
-    ${d.id?"":'<div class="caps" style="margin-top:14px">Nova receita</div>'}
-    <div class="photo-edit">${thumb({foto:d.foto})}
-      <div class="photo-btns"><button class="linkbtn" id="pick">${d.foto?"trocar foto":"colocar foto"}</button>${d.foto?'<button class="linkbtn muted" id="nofoto">remover foto</button>':""}</div>
+    <div class="topbar"><button class="u" id="cancelTop">← cancelar</button><span>${d.id?"":"nova receita"}</span></div>
+    <div class="photo-edit">${d.foto?arch(d.foto):'<span class="ph-empty"></span>'}
+      <div class="photo-btns"><button class="u" id="pick">${d.foto?"trocar foto":"colocar foto"}</button>${d.foto?'<button class="u" id="nofoto" style="color:var(--soft)">remover</button>':""}</div>
       <input type="file" id="fileIn" accept="image/*">
     </div>
-    <input class="fld title" id="eTitle" value="${esc(d.titulo)}" placeholder="Nome da receita" aria-label="Nome da receita">
-    <h4>Ingredientes</h4>
+    <input class="fld title" id="eTitle" value="${esc(d.titulo)}" placeholder="nome da receita" aria-label="Nome da receita">
+    <div class="label">link do vídeo</div>
+    <input class="fld" id="eVideo" type="url" inputmode="url" value="${esc(d.video_url)}" placeholder="cole aqui o link (opcional)" aria-label="Link do vídeo">
+    <h4>ingredientes</h4>
     <div style="width:100%;display:flex;flex-direction:column;gap:2px">${d.ingredientes.map((i,k)=>`
       <div class="erow">
         <input class="fld q" id="eq-${k}" data-k="${k}" data-f="qty" value="${esc(i.qty)}" placeholder="qtd." aria-label="Quantidade">
         <input class="fld n" id="en-${k}" data-k="${k}" data-f="name" value="${esc(i.name)}" placeholder="ingrediente" aria-label="Ingrediente">
         <button class="rm" data-rm="${k}" aria-label="Remover ingrediente">×</button>
       </div>`).join("")}</div>
-    <button class="add" id="addIng">+ ingrediente</button>
-    <h4>Modo de preparo</h4>
+    <button class="add u" id="addIng">+ ingrediente</button>
+    <h4>modo de preparo</h4>
     <div style="width:100%;display:flex;flex-direction:column;gap:4px">${d.passos.map((p,k)=>`
       <div class="erow srow"><i class="snum">${k+1}</i>
         <textarea class="fld n" rows="1" id="es-${k}" data-s="${k}" placeholder="descreva o passo" aria-label="Passo ${k+1}">${esc(p)}</textarea>
         <button class="rm" data-rms="${k}" aria-label="Remover passo">×</button>
       </div>`).join("")}</div>
-    <button class="add" id="addStep">+ passo</button>
-    ${msg?`<p class="msg err" style="margin-top:14px">${esc(msg)}</p>`:""}
-    <div class="actions"><button class="btn" id="cancel">cancelar</button><button class="btn fill" id="saveEdit">salvar</button></div>`;
+    <button class="add u" id="addStep">+ passo</button>
+    ${msg?`<p class="msg err" style="margin-top:16px">${esc(msg)}</p>`:""}
+    <div class="actions"><button class="u" id="cancel">cancelar</button><button class="btn fill" id="saveEdit">salvar</button></div>`;
+  $("eVideo").oninput=e=>{d.video_url=e.target.value};
   $("eTitle").oninput=e=>{d.titulo=e.target.value};
   $view.querySelectorAll(".erow input.fld").forEach(inp=>inp.oninput=()=>{d.ingredientes[+inp.dataset.k][inp.dataset.f]=inp.value});
   $view.querySelectorAll("textarea[data-s]").forEach(t=>{grow(t);t.oninput=()=>{d.passos[+t.dataset.s]=t.value;grow(t)}});
@@ -307,7 +295,9 @@ async function saveEdit(){
   if(!titulo)return renderEdit("Dê um nome pra receita.");
   const ingredientes=d.ingredientes.map(i=>({qty:(i.qty||"").trim(),name:(i.name||"").trim(),checked:!!i.checked})).filter(i=>i.qty||i.name);
   const passos=d.passos.map(p=>(p||"").trim()).filter(Boolean);
-  const body={titulo,foto:d.foto||null,ingredientes,passos,updated_at:new Date().toISOString()};
+  const vu=(d.video_url||"").trim();
+  if(vu&&!safeUrl(vu))return renderEdit("O link do vídeo precisa começar com https://");
+  const body={titulo,foto:d.foto||null,video_url:vu||null,ingredientes,passos,updated_at:new Date().toISOString()};
   $("saveEdit").textContent="salvando…";
   await saving;
   if(d.id){
@@ -363,7 +353,6 @@ $("authForm").addEventListener("submit",async e=>{
   const {error}=await sb.auth.signInWithPassword({email:$("authEmail").value.trim(),password:$("authPass").value});
   if(error)authMsg("E-mail ou senha não conferem. Use os mesmos do Casa Nova.",true); else authMsg("");
 });
-setDeco("list");
 sb.auth.onAuthStateChange((_ev,s)=>{setSession(s)});
 sb.auth.getSession().then(({data})=>{ if(!data.session){$("auth").hidden=false} setSession(data.session) });
 if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(r=>r.update()).catch(()=>{});
