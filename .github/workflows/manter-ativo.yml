@@ -1,0 +1,37 @@
+# Mantém o banco de dados (Supabase) ativo: o plano gratuito pausa
+# o projeto depois de 7 dias sem uso. Roda todo dia sozinho.
+name: Manter app ativo
+
+on:
+  schedule:
+    - cron: "17 12 * * *"   # todo dia, 9h17 no horário de Brasília
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Consultar o banco de dados
+        run: |
+          code=$(curl -s -o /dev/null -w "%{http_code}" \
+            "https://ufbmhikchqhstcbhioib.supabase.co/rest/v1/receitas?select=id&limit=1" \
+            -H "apikey: sb_publishable_QGj4aoHhWZXbCUBep2tylA_a8NckDy7")
+          echo "Resposta: $code"
+          test "$code" = "200"
+
+      # O GitHub desliga tarefas agendadas de repositórios sem atividade
+      # por 60 dias; um registro no dia 1º de cada mês evita isso.
+      - uses: actions/checkout@v4
+      - name: Registro mensal
+        run: |
+          if [ "$(date -u +%d)" = "01" ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            date -u +"%Y-%m-%d %H:%M UTC" > .ultimo-ping
+            git config user.name "manter-ativo"
+            git config user.email "actions@users.noreply.github.com"
+            git add .ultimo-ping
+            git commit -m "Registro mensal para manter o app ativo" || true
+            git push
+          fi
