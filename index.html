@@ -67,7 +67,7 @@ a{color:inherit}
 .topbar{display:flex;justify-content:space-between;align-items:center;width:100%;font-size:12.5px}
 .arch{width:150px;aspect-ratio:5/6;border-radius:999px 999px 6px 6px;overflow:hidden;margin-top:22px;outline:1px solid var(--red);outline-offset:4px}
 .arch img{width:100%;height:100%;object-fit:cover;display:block}
-h2{font-family:var(--name);font-weight:500;font-size:clamp(30px,9vw,38px);line-height:1.1;margin:22px 0 12px;text-wrap:balance;overflow-wrap:anywhere}
+h2{font-family:var(--name);font-weight:500;font-size:clamp(30px,9vw,38px);line-height:1.1;margin:44px 0 12px;text-wrap:balance;overflow-wrap:anywhere}
 .video{font-size:12.5px;display:flex;gap:6px;align-items:center;justify-content:center;flex-wrap:wrap;width:100%}
 .vlink{display:flex;gap:8px;align-items:center;width:100%;max-width:320px;margin:0 auto}
 .vlink input{flex:1;min-width:0;font:inherit;font-size:16px;color:var(--red);background:transparent;border:0;border-bottom:1px dashed var(--soft);padding:6px 2px;border-radius:0}
@@ -258,7 +258,6 @@ function renderRecipe(){
   const url=safeUrl(r.video_url);
   $view.innerHTML=`
     <div class="topbar"><button class="u" id="back">← voltar</button><button class="u" id="edit">editar</button></div>
-    ${r.foto?arch(r.foto):""}
     <h2>${esc(r.titulo)}</h2>
     <div class="video">${url
       ?`<a class="u" href="${esc(url)}" target="_blank" rel="noopener">▶ ver vídeo da receita</a>`
@@ -314,10 +313,7 @@ function renderEdit(msg){
   const d=draft;
   $view.innerHTML=`
     <div class="topbar"><button class="u" id="cancelTop">← cancelar</button><span>${d.id?"":"nova receita"}</span></div>
-    <div class="photo-edit">${d.foto?arch(d.foto):'<span class="ph-empty"></span>'}
-      <div class="photo-btns"><button class="u" id="pick">${d.foto?"trocar foto":"colocar foto"}</button>${d.foto?'<button class="u" id="nofoto" style="color:var(--soft)">remover</button>':""}</div>
-      <input type="file" id="fileIn" accept="image/*">
-    </div>
+    <div style="height:28px"></div>
     <input class="fld title" id="eTitle" value="${esc(d.titulo)}" placeholder="nome da receita" aria-label="Nome da receita">
     <div class="label">link do vídeo</div>
     <input class="fld" id="eVideo" type="url" inputmode="url" value="${esc(d.video_url)}" placeholder="cole aqui o link (opcional)" aria-label="Link do vídeo">
@@ -346,10 +342,6 @@ function renderEdit(msg){
   $view.querySelectorAll("[data-rms]").forEach(b=>b.onclick=()=>{d.passos.splice(+b.dataset.rms,1);renderEdit()});
   $("addIng").onclick=()=>{d.ingredientes.push({qty:"",name:"",checked:false});renderEdit();$("eq-"+(d.ingredientes.length-1)).focus()};
   $("addStep").onclick=()=>{d.passos.push("");renderEdit();$("es-"+(d.passos.length-1)).focus()};
-  $("pick").onclick=()=>$("fileIn").click();
-  if($("nofoto"))$("nofoto").onclick=()=>{d.foto="";renderEdit()};
-  $("fileIn").onchange=async e=>{const f=e.target.files[0];if(!f)return;
-    try{d.foto=await shrink(f);renderEdit()}catch(err){renderEdit("Não consegui abrir essa foto. Tente outra.")}};
   $("cancel").onclick=$("cancelTop").onclick=()=>{const wasNew=!d.id;draft=null;if(wasNew){current=null;renderList()}else renderRecipe();scrollTo(0,0)};
   $("saveEdit").onclick=saveEdit;
 }
